@@ -14,9 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-//= require bootstrap.min
 //= require angular
 //= require moment-with-langs
+//= require bootstrap
 //= require bootstrap-datetimepicker.min
 //= require pickdate/picker
 //= require pickdate/picker.date
@@ -26,12 +26,15 @@
 $(function() {
 	var top = $(".top");
 	if (!!top.html().trim().length) {
-		top.show().fadeOut(3000);
+		top.show().delay(3000).fadeOut(1000, 'linear');
 	}
+	var dismiss = '[data-dismiss="alert"]';
+	$(document).on('close.bs.alert', function() {
+		top.hide();
+	});
+	$("a[rel~=popover], .has-popover").popover();
+  $("a[rel~=tooltip], .has-tooltip").tooltip();
 	$('.datepicker').pickadate();
 	$('.timepicker').pickatime();
 	$('.selectpicker').selectpicker();
-	$('.carousel').carousel({
-		interval: 2000
-	});
 });
