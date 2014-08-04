@@ -43,8 +43,13 @@ gem 'pg'
 gem 'devise'
 gem 'mailcatcher'
 
-# for bootstrap
-gem "therubyracer"
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
+gem 'angularjs-rails'
 
+gem 'autoprefixer-rails'
+
+gem "font-awesome-rails"
+
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recurring_available_hour_id: 1
+  unavailable_period_start: 2014-08-04 00:30:35
+  unvailable_period_end: 2014-08-04 00:30:35
+
+two:
+  recurring_available_hour_id: 1
+  unavailable_period_start: 2014-08-04 00:30:35
+  unvailable_period_end: 2014-08-04 00:30:35

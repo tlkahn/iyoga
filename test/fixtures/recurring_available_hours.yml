@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  teacher_id: 1
+  starting_time: 2014-08-04 00:24:21
+  recurring_interval: 1
+  hours_from_week_start: 1
+
+two:
+  teacher_id: 1
+  starting_time: 2014-08-04 00:24:21
+  recurring_interval: 1
+  hours_from_week_start: 1

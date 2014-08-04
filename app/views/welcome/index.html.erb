@@ -1,8 +1,147 @@
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path %> |
-  <%= link_to "Login", new_user_session_path %>
-<% end %>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="nav top-nav row">
+			<div class="logo col-md-1"><%= image_tag "logo.svg" %></div>
+			<div class="browse col-md-2">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+						Browse
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popular</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nearby</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Friends</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="searchbox col-md-3">
+				<form class="form-search form-inline">
+					<input type="text" class="form-control search-query" placeholder="Search" />
+				</form>
+			</div>
+			<div class="account-menu col-md-4 ">
+				<ul class="nav navbar-nav">
+					<% if user_signed_in? %>
+					<li><a href="#"><%= current_user.email %></a></li>
+					<li><a href="#">Help</a></li>
+					<li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+					<% else %>
+					  <li><%= link_to "Sign up", new_user_registration_path %></li>
+  					<li><%= link_to "Login", new_user_session_path %></li>
+  					<li><a href="#">Help</a></li>
+  				<% end %>
+				</ul>
+			</div>
+			<div class="teacher-access col-md-2">
+				<a class="btn btn-default">I am a teacher</a>
+			</div>
+
+		</div>
+	</div><!-- /.container-fluid -->
+</nav>
+
+<main class="welcome-body" role="main">
+	<div class="container">
+		<div class="row">
+			<div class="welcome-title col-md-12">
+				Your Private Yoga Coach Nextdoor
+			</div>
+			<div class="welcome-subtitle col-md-12">
+				Find a teacher closeby, forget gyms, clubs and studios
+			</div>
+		</div>
+		<div class="row welcome-date-time">
+			<div class="col-md-2"></div>
+			<div class="datepicker-wrap col-md-3">
+				<div>Pick your date</div>
+				<div>
+					<form class="form-search form-inline">
+						<input type="text" class="datepicker form-control search-query" style="width: 100%" />
+					</form>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="timepicker-wrap col-md-2">
+				<div>From</div>
+				<div>
+					<form class="form-search form-inline">
+						<input type="text" class="timepicker form-control search-query" />
+					</form>
+				</div>
+			</div>
+			<div class="timepicker-wrap col-md-2">
+				<div>To</div>
+				<div>
+					<form class="form-search form-inline">
+						<input type="text" class="timepicker form-control search-query" />
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row welcome-components">
+			<div class="col-md-2"></div>
+			<div class="col-md-3"><input type="text" class="search-location form-control" placeholder="Search location"></input></div>
+			<div class="col-md-1"></div>
+			<div class="browse col-md-2">
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					Style
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popular</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nearby</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Friends</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="browse col-md-3">
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					Level
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popular</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nearby</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Friends</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+
+<!-- 	<div class="row carousel-container">
+		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+			</ol>
+
+			<div class="carousel-inner">
+				<div class="item active">
+					<%= image_tag "carousel/yoga1.png" %>
+				</div>
+				<div class="item">
+					<%= image_tag "carousel/yoga2.png" %>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="row welcome-img">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<%= image_tag "carousel/yoga1.png" %>
+		</div>
+		<div class="col-md-1"></div>
+
+	</div>
+
+
+</main>

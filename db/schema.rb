@@ -11,10 +11,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726221638) do
+ActiveRecord::Schema.define(version: 20140803232117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "non_recurring_available_hours", force: true do |t|
+    t.integer  "teacher_id"
+    t.datetime "available_hour_start"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "private_class_reviews", force: true do |t|
+    t.integer  "private_class_id"
+    t.integer  "user_id"
+    t.integer  "score"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "private_classes", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "students",   default: [], array: true
+    t.datetime "start_time"
+    t.string   "style",      default: [], array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recurring_available_hour_unavailable_periods", force: true do |t|
+    t.integer  "recurring_available_hour_id"
+    t.datetime "unavailable_period_start"
+    t.datetime "unvailable_period_end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recurring_available_hours", force: true do |t|
+    t.integer  "teacher_id"
+    t.datetime "starting_time"
+    t.integer  "recurring_interval"
+    t.integer  "hours_from_week_start"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teacher_reviews", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "user_id"
+    t.integer  "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teachers", force: true do |t|
+    t.integer  "user_id"
+    t.text     "address"
+    t.date     "teaching_since"
+    t.string   "style",          default: [], array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

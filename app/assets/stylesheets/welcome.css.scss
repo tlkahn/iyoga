@@ -1,3 +1,115 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.logo img {
+	width: 100%;
+	fill-opacity: 0.0;
+}
+
+nav {
+	padding-top: 10px;
+	padding-bottom: 8px;
+	.logo, .browse, .searchbox, .teacher-access {
+		position: relative;
+		top: 10px;
+	}
+}
+
+.searchbox {
+	input.search-query {
+		padding-left:26px;
+	}
+	form.form-search {
+		position: relative;
+	}
+	form.form-search:before {
+		display: block;
+		width: 14px;
+		height: 14px;
+		content: "\e003";
+		font-family: 'Glyphicons Halflings';
+		background-position: -48px 0;
+		position: absolute;
+		top:8px;
+		left:8px;
+		opacity: .5;
+		z-index: 1000;
+	}
+}
+
+
+main {
+	.welcome-title {
+		margin-top: 20px;
+		font-size: 48px;
+		text-align: center;
+		padding-bottom: 15px;
+	}
+	.welcome-subtitle {
+		font-size: 24px;
+		text-align: center;
+		padding-bottom: 50px;
+	}
+	.welcome-components {
+		margin-top: 20px;
+	}
+	.welcome-date-time {
+		margin-top: 20px;
+	}
+	.datepicker-wrap {
+		input.search-query {
+			padding-left:26px;
+		}
+		form.form-search {
+			position: relative;
+		}
+		form.form-search:before {
+			display: block;
+			width: 14px;
+			height: 14px;
+			content: "\e109";
+			font-family: 'Glyphicons Halflings';
+			background-position: -48px 0;
+			position: absolute;
+			top:8px;
+			left:8px;
+			opacity: .5;
+			z-index: 1000;
+		}
+	}
+
+	.timepicker-wrap {
+		input.search-query {
+			padding-left:26px;
+		}
+		form.form-search {
+			position: relative;
+		}
+		form.form-search:before {
+			display: block;
+			width: 14px;
+			height: 14px;
+			content: "\f017";
+			font-family: 'FontAwesome';
+			background-position: -48px 0;
+			position: absolute;
+			top:8px;
+			left:8px;
+			opacity: .5;
+			z-index: 1000;
+		}
+	}
+
+	.timepicker, .datepicker {
+		cursor: pointer !important;
+	}
+
+	.carousel-container {
+		margin-top: 50px;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+
+}

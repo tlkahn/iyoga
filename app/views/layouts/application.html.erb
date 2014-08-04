@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Iyoga</title>
+  <title>iYoga</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="top alert alert-warning">
+		<%= show_alert %>
+		<%= show_error %>
+		<%= show_notice %>
+	</div>
+	<div class="container">
 		<%= yield %>
 	</div>
+
+	<%= render "shared/footer" %>
 </body>
 </html>
