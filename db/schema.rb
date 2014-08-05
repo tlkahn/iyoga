@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804230845) do
+ActiveRecord::Schema.define(version: 20140805094557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "messages", force: true do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "non_recurring_available_hours", force: true do |t|
     t.integer  "teacher_id"
@@ -65,13 +74,7 @@ ActiveRecord::Schema.define(version: 20140804230845) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-  end
-
-  create_table "style_followings", force: true do |t|
-    t.integer  "student_id"
-    t.integer  "style_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "styles",         default: [], array: true
   end
 
   create_table "styles", force: true do |t|

@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :styles
-
-  get 'students/:id/edit' => "students#edit", :as  => "edit_student"
-
-  get 'students/:id' => "students#show", :as => "student"
+  resources :students, only:["show", "edit", "update"] do
+    resources :messages
+  end
 
   patch 'students/:id' => "students#update"
 

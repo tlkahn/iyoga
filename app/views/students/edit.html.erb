@@ -9,7 +9,7 @@
 				<select id="student_style" multiple="multiple">
 				</select>
 		</div>
-		<input type="text" name="student[styles]" class="selected-style">
+		<input type="text" name="student[styles]" class="selected-style" style="display:none">
 		<%= f.submit %>
 		<% end %>
 	</div>
@@ -50,10 +50,32 @@
 				var inputs = $(ms[ms.length-1]).find("input");
 				for (var j = 0; j < inputs.length; j++) {
 					var _input = $(inputs[j]);
-					if (_input.prop("value") === (oldStyles[i].id + ""))
+					if (_input.parent().html().match(/\<input\s.+\>(.+)/)[1].trim() === (oldStyles[i] + ""))
 						_input.click();
 				};
 			};
+			var toggle = false;
+
+			$("html").click(function(event) {
+				var target = $(event.target);
+				if (target.parents('.form-group .btn-group').length) {
+					toggle = !toggle
+					$("ul.multiselect-container").toggle(toggle);
+					event.stopPropagation();
+				}
+				else {
+					toggle = false
+					$("ul.multiselect-container").toggle(toggle);
+				}
+			});
+
+			$("button.multiselect").click(function(event) {
+				toggle = !toggle
+				$("ul.multiselect-container").toggle(toggle);
+				event.stopPropagation();
+			});
+
+
 		}, 500);
 	}()
 </script>
