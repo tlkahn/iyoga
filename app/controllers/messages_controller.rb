@@ -4,7 +4,11 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    @messages = Message.where({from_user_id: current_user.id}).order("created_at desc")
+  end
+
+  def show_all
+    @messages = Message.all.order("from_user_id asc").order("created_at desc")
   end
 
   # GET /messages/1
@@ -25,10 +29,10 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
-
+    @message.from_user_id = current_user.id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to message_path(@message), notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to message_path(@message), notice: 'Message was successfully updated.' }
         format.json { render :show, status: :ok, location: @message }
       else
         format.html { render :edit }
@@ -61,10 +65,15 @@ class MessagesController < ApplicationController
     end
   end
 
+  #this one is a bit strange since this method is standing in the pointview as a reader.
+  def gotoinbox
+    @messages = Message.where({to_user_id: current_user.id})
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
-      @message = Message.find(params[:id])
+      @message = Message.find(params[:id]) if params[:id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

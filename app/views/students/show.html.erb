@@ -1,0 +1,13 @@
+<ul>
+	<li><%= @student.user.email %></li>
+	<li><%= @student.user.name %></li>
+	<li><%= @student.phone %></li>
+	<li><%= @student.introduction %></li>
+	<li>
+		<ul>
+			<% @student.styles.each do |style| %>
+				<li><%= style %></li>
+			<% end %>
+		</ul>
+	</li>
+</ul>

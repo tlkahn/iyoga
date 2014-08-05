@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :students, only:["show", "edit", "update"] do
-    resources :messages
-  end
+  get 'loginfo' => "loginfo#index"
 
-  patch 'students/:id' => "students#update"
+
+  resources :messages
+
+  resources :students
+  post 'students/:id/messages' => "students#create"
+  get '/inbox' => "messages#gotoinbox"
+  get '/allmessages' => "messages#show_all"
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: "registrations" }
 

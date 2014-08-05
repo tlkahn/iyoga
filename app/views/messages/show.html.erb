@@ -1,24 +1,33 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>From user:</strong>
-  <%= @message.from_user_id %>
-</p>
-
-<p>
-  <strong>To user:</strong>
-  <%= @message.to_user_id %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @message.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @message.body %>
-</p>
-
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+<table class="table">
+	<tr>
+		<td style="width: 10%">  <strong>From</strong></td>
+		<td><%= @message.from_user_id %></td>
+	</tr>
+	<tr>
+		<td style="width: 10%">
+			<strong>To:</strong>
+		</td>
+		<td>
+			<%= @message.to_user_id %>
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 10%">
+			<strong>Title</strong>
+		</td>
+		<td>
+			<%= @message.title %>
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 10%">
+			<strong>Text</strong>
+		</td>
+		<td>
+			<%= @message.body %>
+		</td>
+	</tr>
+</table>
+<%= link_to 'Edit', edit_message_path(@message) , :class => "btn btn-default"%>
+<%= link_to 'Back', messages_path , :class => "btn btn-default"%>

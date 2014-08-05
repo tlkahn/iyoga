@@ -13,6 +13,7 @@ $ ->
 
 	$("a.pull-down").click (e) ->
 		e.preventDefault()
+		e.stopPropagation()
 		pullDowntoggle = !pullDowntoggle
 		$(document).trigger("pullDownToggleChanged")
 
@@ -22,3 +23,9 @@ $ ->
 		else
 			$(".pull-down-menu").hide()
 	)
+
+	$("html").click (event) ->
+		target = $(event.target)
+		if (target.parents(".pull-down-menu").length == 0 and target.parents(".pull-down-button").length == 0)
+			pullDowntoggle = false
+			$(".pull-down-menu").toggle(pullDowntoggle)

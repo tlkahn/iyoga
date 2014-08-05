@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @messages.each do |message| %>
+    <% @student = User.find(message.from_user_id).student %>
+      <tr>
+        <td><%= message.from_user_id %></td>
+        <td><%= message.to_user_id %></td>
+        <td><%= link_to message.title, student_message_path(@student, message) %></td>
+        <td><%= link_to 'Edit', edit_student_message_path(@student, message), class:"btn btn-default" %></td>
+        <td><%= link_to 'Destroy', student_message_path(@student, message), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
