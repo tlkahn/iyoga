@@ -1,7 +1,8 @@
 class StudentsController < ApplicationController
+  before_action :set_student, only: [:show, :edit, :update, :destroy]
+
   def edit
     if current_user
-      @student = Student.find_by_user_id(current_user.id)
       @styles = Style.all
       @old_styles = @student.styles
     else
@@ -11,13 +12,13 @@ class StudentsController < ApplicationController
   end
 
   def show
-    if current_user
-      @student = Student.find_by_user_id(current_user.id)
+    unless current_user
+      flash[:notice] = 'You have not signed in yet.'
+      redirect_to :root
     end
   end
 
   def update
-    @student = Student.find_by_user_id(current_user.id)
     @student.phone = params["student"]["phone"]
     @student.introduction = params["student"]["introduction"]
     styles = params["student"]["styles"].split(",").collect(&:strip)
@@ -25,5 +26,11 @@ class StudentsController < ApplicationController
     @student.save
     flash[:notice] = "Saved."
     redirect_to :root
+  end
+
+  protected
+
+  def set_student
+    @student = Student.find params[:id]
   end
 end

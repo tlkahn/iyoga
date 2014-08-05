@@ -2,14 +2,15 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
+$(document).on "ready page:load", ->
+	$(".pull-down-menu").hide()
+
 	$(".account-menu ul li a").hover ->
 		$(@).parent().addClass("active")
 	, ->
 		$(@).parent().removeClass("active")
 
 	pullDowntoggle = false
-	$(".pull-down-menu").hide()
 
 	$("a.pull-down").click (e) ->
 		e.preventDefault()

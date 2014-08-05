@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'students/:id/messages' => "students#create"
   get '/inbox' => "messages#gotoinbox"
   get '/allmessages' => "messages#show_all"
+  get '/messages/remove/:id' => "messages#delete_by_receipient", :as => "remove_message"
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: "registrations" }
 

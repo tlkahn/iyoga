@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :set_message, only: [:show, :edit, :update, :destroy, :delete_by_receipient]
 
   # GET /messages
   # GET /messages.json
@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
   end
 
   def show_all
-    @messages = Message.all.order("from_user_id asc").order("created_at desc")
+    @messages = Message.all.order("from_user_id asc").order("created_at desc") # TODO: if user is admin
   end
 
   # GET /messages/1
@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
     @message.from_user_id = current_user.id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to message_path(@message), notice: 'Message was successfully created.' }
+        format.html { redirect_to messages_path, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -67,7 +67,14 @@ class MessagesController < ApplicationController
 
   #this one is a bit strange since this method is standing in the pointview as a reader.
   def gotoinbox
-    @messages = Message.where({to_user_id: current_user.id})
+    @messages = Message.where({to_user_id: current_user.id, visible_to_receipient: true})
+  end
+
+  def delete_by_receipient
+    @message.visible_to_receipient = false
+    @message.save!
+    flash[:notice] = "Message deleted."
+    redirect_to "/inbox"
   end
 
   private

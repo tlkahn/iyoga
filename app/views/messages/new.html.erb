@@ -31,9 +31,9 @@
     <%= f.text_area :body, hide_label:true %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit" %>&nbsp;&nbsp;&nbsp;<%= link_to 'Cancel', messages_path, class: "btn btn-default" %>
   </div>
 <% end %>
 
 
-<%= link_to 'Back', messages_path %>
+

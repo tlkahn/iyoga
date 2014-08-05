@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805094557) do
+ActiveRecord::Schema.define(version: 20140805171336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140805094557) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "visible_to_receipient"
   end
 
   create_table "non_recurring_available_hours", force: true do |t|

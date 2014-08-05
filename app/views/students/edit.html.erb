@@ -10,10 +10,12 @@
 				</select>
 		</div>
 		<input type="text" name="student[styles]" class="selected-style" style="display:none">
-		<%= f.submit %>
+		<%= f.submit "Update" %>&nbsp;&nbsp;&nbsp;<%= link_to "Cancel", :root, class: "btn btn-default" %>
 		<% end %>
 	</div>
 	<div class="col-md-4"></div>
+
+	<!-- data area -->
 	<div class="styles" style="display:none">
 		<%= @styles.to_json %>
 	</div>
@@ -43,7 +45,8 @@
 			$(".selected-style").val(newStyles);
 		});
 
-		setTimeout(function() {
+		var cb = function() {
+			if ($(".old-styles").length === 0) return;
 			var oldStyles = $.parseJSON($(".old-styles").html());
 			for (var i = 0; i < oldStyles.length; i++) {
 				var ms = $(".multiselect-container");
@@ -74,8 +77,9 @@
 				$("ul.multiselect-container").toggle(toggle);
 				event.stopPropagation();
 			});
+		}
 
+		setTimeout(cb, 0);
 
-		}, 500);
 	}()
 </script>
