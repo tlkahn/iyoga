@@ -22,3 +22,7 @@ module Iyoga
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end
+
+def debugger
+    byebug
+end

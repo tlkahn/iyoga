@@ -37,6 +37,9 @@ gem 'spring',        group: :development
 
 # Use debugger
 gem 'byebug', group: [:development, :test]
+gem 'pry'
+gem 'pry-doc'
+gem 'pry-rails', :group => :development
 
 # user defined
 gem 'pg'
@@ -53,3 +56,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
+
+gem 'bootstrap_form'
+
+gem 'kaminari'

@@ -111,5 +111,31 @@ main {
 		text-align: center;
 	}
 
-
 }
+
+	.account-menu {
+		position: relative;
+		.pull-down {
+			position:relative;
+			top: 15px;
+		}
+		.pull-down-menu {
+			z-index: 1000;
+			position: absolute;
+			top: 35px;
+			background-color: #fff;
+			border-radius: 2px;
+			border: 1px solid #e8e9e7;
+			padding: 5px;
+			line-height: 25px;
+			-webkit-background-clip: padding-box;
+			-moz-background-clip: padding;
+			background-clip: padding-box;
+		}
+		.pull-down-menu ul {
+			margin-top: 5px;
+			list-style-type: none;
+			padding-left: 0
+		}
+
+	}

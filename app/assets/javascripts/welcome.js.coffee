@@ -7,3 +7,18 @@ $ ->
 		$(@).parent().addClass("active")
 	, ->
 		$(@).parent().removeClass("active")
+
+	pullDowntoggle = false
+	$(".pull-down-menu").hide()
+
+	$("a.pull-down").click (e) ->
+		e.preventDefault()
+		pullDowntoggle = !pullDowntoggle
+		$(document).trigger("pullDownToggleChanged")
+
+	$(document).on('pullDownToggleChanged', ->
+		if pullDowntoggle
+			$(".pull-down-menu").show()
+		else
+			$(".pull-down-menu").hide()
+	)

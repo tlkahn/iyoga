@@ -22,6 +22,7 @@
 //= require pickdate/picker.date
 //= require pickdate/picker.time
 //= require bootstrap-select/bootstrap-select
+//= require bootstrap-multiselect
 
 $(function() {
 	var top = $(".top");
@@ -32,9 +33,11 @@ $(function() {
 	$(document).on('close.bs.alert', function() {
 		top.hide();
 	});
+
 	$("a[rel~=popover], .has-popover").popover();
   $("a[rel~=tooltip], .has-tooltip").tooltip();
 	$('.datepicker').pickadate();
 	$('.timepicker').pickatime();
 	$('.selectpicker').selectpicker();
+	$('.multiselect').multiselect();
 });

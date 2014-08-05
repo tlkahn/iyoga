@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
 
+  has_one :teacher
+  has_one :student
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
   	user = User.where(:provider => auth.provider, :uid => auth.uid).first
   	if user
@@ -12,12 +15,6 @@ class User < ActiveRecord::Base
   		if registered_user
   			return registered_user
   		else
-  			# user = User.create(name:auth.extra.raw_info.name,
-  			# 	provider:auth.provider,
-  			# 	uid:auth.uid,
-  			# 	email:auth.info.email,
-  			# 	password:Devise.friendly_token[0,20],
-  			# 	)
         user = User.new(name:auth.extra.raw_info.name,
           provider:auth.provider,
           uid:auth.uid,
@@ -26,6 +23,9 @@ class User < ActiveRecord::Base
           )
         user.skip_confirmation!
         user.save!
+        student = Student.create!
+        student.user_id = user.id
+        student.save
         return user
   		end
   	end

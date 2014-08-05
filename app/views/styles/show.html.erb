@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @style.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @style.description %>
+</p>
+
+<hr></hr>
+
+<%= link_to 'Edit Again', edit_style_path(@style), class: "btn btn-default"%>
+<%= link_to 'Back', styles_path, class: "btn btn-default"%>

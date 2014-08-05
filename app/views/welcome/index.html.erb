@@ -24,9 +24,19 @@
 			<div class="account-menu col-md-4 ">
 				<ul class="nav navbar-nav">
 					<% if user_signed_in? %>
-					<li><a href="#"><%= current_user.email %></a></li>
+					<li>
+					<div>
+						<a class="pull-down" href="#" ><%=  current_user.email %>&nbsp;<i class="fa fa-caret-down"></i></a>
+					</div>
+					<div class="pull-down-menu">
+						<ul>
+							<li><%= link_to "Edit your profile", edit_student_path(current_user.id) %></li>
+							<li><%= link_to "Account", edit_user_registration_path(current_user.id) %></li>
+							<li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+						</ul>
+					</div>
+						</li>
 					<li><a href="#">Help</a></li>
-					<li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
 					<% else %>
 					  <li><%= link_to "Sign up", new_user_registration_path %></li>
   					<li><%= link_to "Login", new_user_session_path %></li>
@@ -145,3 +155,5 @@
 
 
 </main>
+
+<%= render "shared/footer"%>

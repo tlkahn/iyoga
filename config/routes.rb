@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
 
-  devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
+  resources :styles
+
+  get 'students/:id/edit' => "students#edit", :as  => "edit_student"
+
+  get 'students/:id' => "students#show", :as => "student"
+
+  patch 'students/:id' => "students#update"
+
+  devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: "registrations" }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,4 +64,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
 end

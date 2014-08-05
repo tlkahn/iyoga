@@ -1,20 +1,28 @@
-<h2>Sign up</h2>
+<div class="fluid-container">
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-8 border-form-div">
+			<div class="fb-sign-in">
+				<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class=>"btn btn-default" %>
+			</div>
+			<hr class="footer-divider row-space-top-8 row-space-4 hide-phone">
+			<div class="sign-in-box">
+				<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+				<%= devise_error_messages! %>
+				<div>
+					<%= f.email_field :email, autofocus: true %>
+				</div>
+				<div>
+					<%= f.password_field :password, autocomplete: "off" %></div>
+				<div>
+				<%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+				<div>
+					<%= f.submit "Sign up" %>
+				</div>
+				<% end %>
+			</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
-
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
-
-<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-
-<%= render "devise/shared/links" %>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>

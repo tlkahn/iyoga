@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4 edit-student-form">
+		<%= bootstrap_form_for(@student) do |f| %>
+		<%= f.phone_field :phone %>
+		<%= f.text_area :introduction %>
+		<div class="form-group">
+			<label class="control-label" for="student_style">Style</label> &nbsp;
+				<select id="student_style" multiple="multiple">
+				</select>
+		</div>
+		<input type="text" name="student[styles]" class="selected-style">
+		<%= f.submit %>
+		<% end %>
+	</div>
+	<div class="col-md-4"></div>
+	<div class="styles" style="display:none">
+		<%= @styles.to_json %>
+	</div>
+	<div class="old-styles" style="display:none">
+		<%= @old_styles.to_json %>
+	</div>
+</div>
+
+<script type="text/javascript">
+	//have to use this immediate provoked function pattern to avoid a strange bug that multiselect does not work.
+	+function() {
+		var styles = $.parseJSON($(".styles").html());
+		var select = $("#student_style");
+		for (var i = 0; i < styles.length; i++) {
+			select.append("<option value ='" + styles[i].id +"'>" + styles[i].name + "</option>");
+		};
+		$('#student_style').multiselect();
+		var selectedStyles="";
+		setInterval(function() {
+			var newStyles = $("button.multiselect").prop("title");
+			if ( newStyles !== selectedStyles) {
+				$(document).trigger("selectChange", [newStyles]);
+			}
+		}, 100);
+
+		$(document).on("selectChange", function(event, newStyles) {
+			$(".selected-style").val(newStyles);
+		});
+
+		setTimeout(function() {
+			var oldStyles = $.parseJSON($(".old-styles").html());
+			for (var i = 0; i < oldStyles.length; i++) {
+				var ms = $(".multiselect-container");
+				var inputs = $(ms[ms.length-1]).find("input");
+				for (var j = 0; j < inputs.length; j++) {
+					var _input = $(inputs[j]);
+					if (_input.prop("value") === (oldStyles[i].id + ""))
+						_input.click();
+				};
+			};
+		}, 500);
+	}()
+</script>
