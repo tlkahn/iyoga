@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
 
-  get 'loginfo' => "loginfo#index"
+  resources :instructors do
+    resources :non_recurring_hours
+    resources :recurring_available_hours
+  end
+  resources :instructors
 
+  post '/instructor/:instructor_id/non_recurring_hours' => "non_recurring_hours#create", as: "create_non_recurring_hour"
+
+  get 'loginfo' => "loginfo#index"
 
   resources :messages
 
@@ -12,6 +19,8 @@ Rails.application.routes.draw do
   get '/messages/remove/:id' => "messages#delete_by_receipient", :as => "remove_message"
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: "registrations" }
+
+  get 'users/:user_id/schedule'  => "instructors#schedule", as: "user_schedule"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,23 @@
+<%= bootstrap_form_for(@non_recurring_hour, url: create_non_recurring_hour_path(@instructor)) do |f| %>
+  <% if @non_recurring_hour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@non_recurring_hour.errors.count, "error") %> prohibited this non_recurring_hour from being saved:</h2>
+
+      <ul>
+      <% @non_recurring_hour.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.select(:instructor_id, @instructor_select_options, label: "Instructor Id") %>
+  </div>
+  <div class="field">
+    <%= f.datetime_select :available_hour_start,  class: "selectpicker" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>

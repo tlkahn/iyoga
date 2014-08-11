@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
 
-  has_one :teacher
+  has_one :instructor
   has_one :student
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)

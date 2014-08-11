@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= @non_recurring_hour.instructor_id %>
+</p>
+
+<p>
+  <strong>Available hour start:</strong>
+  <%= @non_recurring_hour.available_hour_start %>
+</p>
+
+<%= link_to 'Edit', edit_instructor_non_recurring_hour_path(@instructor, @non_recurring_hour) %> |
+<%= link_to 'Back', instructor_non_recurring_hours_path(@instructor) %>

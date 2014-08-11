@@ -1,0 +1,33 @@
+<h1>Listing instructors</h1>
+
+<table class="table striped-table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Address</th>
+      <th>Certificates</th>
+      <th>Teach since</th>
+      <th>Style</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instructors.each do |instructor| %>
+      <tr>
+        <td><%= instructor.user_id %></td>
+        <td><%= instructor.address %></td>
+        <td><%= instructor.certificates %></td>
+        <td><%= instructor.teach_since %></td>
+        <td><%= instructor.styles %></td>
+        <td><%= link_to 'Show', instructor %></td>
+        <td><%= link_to 'Edit', edit_instructor_path(instructor) %></td>
+        <td><%= link_to 'Destroy', instructor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Instructor', new_instructor_path %>

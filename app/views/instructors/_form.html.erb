@@ -1,0 +1,44 @@
+<%= bootstrap_form_for(@instructor) do |f| %>
+<% if @instructor.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@instructor.errors.count, "error") %> prohibited this instructor from being saved:</h2>
+
+  <ul>
+    <% @instructor.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="field">
+<%= f.text_field :street1 %>
+</div>
+<div class="field">
+<%= f.text_field :street2 %>
+</div>
+<div class="field">
+<%= f.text_field :city %>
+</div>
+<div class="field">
+<%= f.text_field :state %>
+</div>
+<div class="field">
+<%= f.text_field :country %>
+</div>
+<div class="field">
+<%= f.text_field :zip %>
+</div>
+<div class="field">
+  <%= f.text_field :certificates %>
+</div>
+<div class="field">
+  <%= f.date_select :teach_since %>
+</div>
+<div class="field">
+  <%= f.text_field :styles %>
+</div>
+<div class="actions">
+  <%= f.submit %> <%= link_to "Cancel", :back, class: "btn btn-default" %>
+</div>
+<% end %>

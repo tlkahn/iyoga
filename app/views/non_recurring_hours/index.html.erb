@@ -1,0 +1,29 @@
+<h1>Listing non_recurring_hours</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Instructor</th>
+      <th>User</th>
+      <th>Available hour start</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @non_recurring_hours.each do |non_recurring_hour| %>
+      <tr>
+        <td><%= non_recurring_hour.instructor_id %></td>
+        <td><%= Instructor.find(non_recurring_hour.instructor_id).user.id %></td>
+        <td><%= non_recurring_hour.available_hour_start %></td>
+        <td><%= link_to 'Show', instructor_non_recurring_hour_path(@instructor, non_recurring_hour) %></td>
+        <td><%= link_to 'Edit', edit_instructor_non_recurring_hour_path(@instructor, non_recurring_hour) %></td>
+        <td><%= link_to 'Destroy', instructor_non_recurring_hour_path(@instructor, non_recurring_hour), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Non recurring hour', new_instructor_non_recurring_hour_path(@instructor) %>

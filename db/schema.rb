@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805171336) do
+ActiveRecord::Schema.define(version: 20140811055902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "instructors", force: true do |t|
+    t.integer  "user_id"
+    t.string   "certificates", default: [], array: true
+    t.date     "teach_since"
+    t.string   "styles",       default: [], array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zip"
+    t.float    "latitude"
+    t.float    "longitude"
+  end
 
   create_table "messages", force: true do |t|
     t.integer  "from_user_id"
@@ -26,8 +43,8 @@ ActiveRecord::Schema.define(version: 20140805171336) do
     t.boolean  "visible_to_receipient"
   end
 
-  create_table "non_recurring_available_hours", force: true do |t|
-    t.integer  "teacher_id"
+  create_table "non_recurring_hours", force: true do |t|
+    t.integer  "instructor_id"
     t.datetime "available_hour_start"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -60,10 +77,16 @@ ActiveRecord::Schema.define(version: 20140805171336) do
   end
 
   create_table "recurring_available_hours", force: true do |t|
-    t.integer  "teacher_id"
     t.datetime "starting_time"
-    t.integer  "recurring_interval"
     t.integer  "hours_from_week_start"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "instructor_id"
+    t.string   "recurring_interval_id"
+  end
+
+  create_table "recurring_intervals", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -76,6 +99,9 @@ ActiveRecord::Schema.define(version: 20140805171336) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "styles",         default: [], array: true
+    t.string   "college"
+    t.string   "language",       default: [], array: true
+    t.string   "interest",       default: [], array: true
   end
 
   create_table "styles", force: true do |t|
@@ -89,15 +115,6 @@ ActiveRecord::Schema.define(version: 20140805171336) do
     t.integer  "teacher_id"
     t.integer  "user_id"
     t.integer  "score"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "teachers", force: true do |t|
-    t.integer  "user_id"
-    t.text     "address"
-    t.date     "teaching_since"
-    t.string   "style",          default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
