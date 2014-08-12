@@ -1,12 +1,12 @@
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="nav top-nav row">
-			<div class="logo col-md-1"><%= image_tag "logo.svg" %></div>
-			<div class="browse col-md-2">
+			<div class="logo col-md-1" ><%= image_tag "logo.svg", :style => "width: 50px" %></div>
+			<div class="browse col-md-2 col-xs-12" >
 				<div class="dropdown">
 					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						Browse
-						<span class="caret"></span>
+					Browse
+					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
@@ -16,44 +16,49 @@
 					</ul>
 				</div>
 			</div>
-			<div class="searchbox col-md-3">
+			<div class="searchbox col-md-3 col-xs-12" >
 				<form class="form-search form-inline">
 					<input type="text" class="form-control search-query" placeholder="Search" />
 				</form>
 			</div>
-			<div class="account-menu col-md-4 ">
+			<div class="account-menu col-md-4 col-xs-12" >
 				<ul class="nav navbar-nav">
 					<% if user_signed_in? %>
 					<li>
-					<div class="pull-down-button">
-						<a class="pull-down" href="#" ><%=  current_user.email %>&nbsp;<i class="fa fa-caret-down"></i></a>
-					</div>
-					<div class="pull-down-menu">
-						<ul>
-							<li><%= link_to "Edit your profile", edit_student_path(Student.find_by_user_id(current_user.id)) %></li>
-							<li><%= link_to "Account", edit_user_registration_path(current_user.id) %></li>
-							<li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-						</ul>
-					</div>
-						</li>
+						<div class="dropdown pull-down-button">
+							<a class="pull-down" href="#" ><span><%=  current_user.email %></span>
+							<span>
+								<i class="fa fa-caret-down"></i>
+							</span>
+							</a>
+						</div>
+						<div class="pull-down-menu">
+							<ul>
+								<li><%= link_to "Edit your profile", edit_student_path(Student.find_by_user_id(current_user.id)) %></li>
+								<li><%= link_to "Account", edit_user_registration_path(current_user.id) %></li>
+								<li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+							</ul>
+						</div>
+					</li>
 					<li><a href="/inbox"><i class="fa fa-envelope fa-lg"></i></a></li>
 					<li><a href="#">Help</a></li>
 					<% else %>
-					  <li><%= link_to "Sign up", new_user_registration_path %></li>
-  					<li><%= link_to "Login", new_user_session_path %></li>
-  					<li><a href="#">Help</a></li>
-  				<% end %>
+					<li><%= link_to "Sign up", new_user_registration_path %></li>
+					<li><%= link_to "Login", new_user_session_path %></li>
+					<li><a href="#">Help</a></li>
+					<% end %>
 				</ul>
 			</div>
-			<div class="teacher-access col-md-2">
+			<div class="teacher-access col-md-2 col-xs-12">
 				<%= link_to "I am a teacher", new_instructor_path, class: "btn btn-default" %>
 			</div>
-
+			<div class="row">
+				<div class="col-md-12 col-xs-12">&nbsp;</div>
+			</div>
 		</div>
-	</div><!-- /.container-fluid -->
-</nav>
-
-<main class="welcome-body" role="main">
+		</div><!-- /.container-fluid -->
+	</nav>
+	<main class="welcome-body" role="main">
 	<div class="container">
 		<div class="row">
 			<div class="welcome-title col-md-12">
@@ -69,12 +74,11 @@
 				<div>Pick your date</div>
 				<div>
 					<form class="form-search form-inline">
-						<input type="text" class="datepicker form-control search-query" style="width: 100%" />
+						<input type="text" class="datepicker form-control search-query" />
 					</form>
 				</div>
 			</div>
-			<div class="col-md-1"></div>
-			<div class="timepicker-wrap col-md-2">
+			<div class="timepicker-wrap col-md-3">
 				<div>From</div>
 				<div>
 					<form class="form-search form-inline">
@@ -82,7 +86,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="timepicker-wrap col-md-2">
+			<div class="timepicker-wrap col-md-3">
 				<div>To</div>
 				<div>
 					<form class="form-search form-inline">
@@ -92,69 +96,52 @@
 			</div>
 		</div>
 		<div class="row welcome-components">
-			<div class="col-md-2"></div>
-			<div class="col-md-3"><input type="text" class="search-location form-control" placeholder="Search location"></input></div>
+			<div class="col-md-2">&nbsp;</div>
+			<div class="col-md-3" style="padding-bottom:10px"><input type="text" class="search-location form-control" placeholder="Search location"></input></div>
+			<div class="col-md-3">
+				<select class="selectpicker" data-live-search="true" data-width="100%" multiple title="Style">
+					<option>Iyengar</option>
+					<option>Ashtanga Vinyasah</option>
+					<option>a</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<select class="selectpicker" data-live-search="true" data-width="100%" multiple title="Level">
+					<option>b</option>
+					<option>b</option>
+					<option>b</option>
+					<option>b</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" style="text-align:right;margin-top:20px;padding-right:120px">
+				<form action="/search">
+					<input type="submit" class="btn btn-primary" value="Search" style="opacity:0.8">
+				</form>
+			</div>
+		</div>
+		<!-- 	<div class="row carousel-container">
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+								<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						</ol>
+						<div class="carousel-inner">
+								<div class="item active">
+										<%= image_tag "carousel/yoga1.png" %>
+								</div>
+								<div class="item">
+								</div>
+						</div>
+				</div>
+		</div> -->
+		<div class="row welcome-img">
 			<div class="col-md-1"></div>
-			<div class="browse col-md-2">
-			<div class="dropdown">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-					Style
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popular</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nearby</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Friends</a></li>
-				</ul>
+			<div class="col-md-10">
+				<%= image_tag "carousel/yoga1.png" %>
 			</div>
+			<div class="col-md-1"></div>
 		</div>
-		<div class="browse col-md-3">
-			<div class="dropdown">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-					Level
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popular</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nearby</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Friends</a></li>
-				</ul>
-			</div>
-		</div>
-
-	</div>
-
-
-<!-- 	<div class="row carousel-container">
-		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-			</ol>
-
-			<div class="carousel-inner">
-				<div class="item active">
-					<%= image_tag "carousel/yoga1.png" %>
-				</div>
-				<div class="item">
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<div class="row welcome-img">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<%= image_tag "carousel/yoga1.png" %>
-		</div>
-		<div class="col-md-1"></div>
-
-	</div>
-
-
-</main>
-
-<%= render "shared/footer"%>
-
+		</main>
+		<%= render "shared/footer"%>

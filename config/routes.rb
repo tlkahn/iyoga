@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'loginfo' => "loginfo#index"
 
+  get '/search' => 'welcome#search'
+
   resources :messages
 
   resources :students

@@ -13,12 +13,14 @@ nav {
 	.logo, .browse, .searchbox, .teacher-access {
 		position: relative;
 		top: 10px;
+		padding-bottom: 10px;
 	}
 }
 
 .searchbox {
 	input.search-query {
 		padding-left:26px;
+		width: 100% !important;
 	}
 	form.form-search {
 		position: relative;
@@ -103,6 +105,7 @@ main {
 
 	.timepicker, .datepicker {
 		cursor: pointer !important;
+		width: 100% !important;
 	}
 
 	.carousel-container {
@@ -111,7 +114,7 @@ main {
 		text-align: center;
 	}
 
-}
+	}
 
 	.account-menu {
 		position: relative;
@@ -137,5 +140,51 @@ main {
 			list-style-type: none;
 			padding-left: 0
 		}
+		ul li {
+			padding-right: 10px;
+		}
 
+	}
+
+	@media all and (max-width: 1000px) {
+		.logo {
+			display: none
+		}
+		.dropdown button {
+			width: 100%
+		}
+		.teacher-access a {
+			width: 100%
+		}
+		.account-menu {
+			text-align: center;
+			ul {
+				width: 100%;
+				li {
+					width: 30%;
+					margin-left: 3%;
+				}
+			}
+		}
+		.pull-down-button {
+			text-align: left;
+		}
+		.welcome-img img {
+			width: 100%
+		}
+	}
+
+	@media all and (max-width: 800px) {
+		.pull-down-button {
+			height: 40px
+		}
+		.account-menu ul li {
+			float: left
+		}
+	}
+
+	@media all and (max-width:550px) {
+		.fa-caret-down {
+			display: none !important;
+		}
 	}

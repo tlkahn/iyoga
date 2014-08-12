@@ -780,7 +780,9 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
     $(backdrop).remove()
     $(toggle).each(function () {
       var $parent = getParent($(this))
-      var relatedTarget = { relatedTarget: this }
+      var relatedTarget = { relatedTarget: this}
+      if(e && e.originalEvent && e.originalEvent.target)
+        relatedTarget["originTarget"] = e.originalEvent.target
       if (!$parent.hasClass('open')) return
       $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
       if (e.isDefaultPrevented()) return
