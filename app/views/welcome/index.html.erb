@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="nav top-nav row">
 			<div class="logo col-md-1" ><%= image_tag "logo.svg", :style => "width: 50px" %></div>
-			<div class="browse col-md-2 col-xs-12" >
+			<div class="browse col-md-1 col-xs-12" >
 				<div class="dropdown">
 					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 					Browse
@@ -21,6 +21,7 @@
 					<input type="text" class="form-control search-query" placeholder="Search" />
 				</form>
 			</div>
+			<div class="col-md-1">&nbsp;</div>
 			<div class="account-menu col-md-4 col-xs-12" >
 				<ul class="nav navbar-nav">
 					<% if user_signed_in? %>
@@ -62,10 +63,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="welcome-title col-md-12">
-				Your Private Yoga Coach Nextdoor
+				Your Private Yoga Coach Everyday
 			</div>
 			<div class="welcome-subtitle col-md-12">
-				Find a teacher closeby, forget gyms, clubs and studios
+				Find a teacher close by, forget gyms, clubs and studios
+			</div>
+			<div class="icon-image-wrapper">
+				<%= image_tag "zen.jpeg", :class => "icon-image" %>
 			</div>
 		</div>
 		<div class="row welcome-date-time">
@@ -115,7 +119,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12" style="text-align:right;margin-top:20px;padding-right:120px">
+			<div class="col-md-12" style="text-align:center;margin-top:10px;margin-bottom:10px">
 				<form action="/search">
 					<input type="submit" class="btn btn-primary" value="Search" style="opacity:0.8">
 				</form>
@@ -138,8 +142,8 @@
 		</div> -->
 		<div class="row welcome-img">
 			<div class="col-md-1"></div>
-			<div class="col-md-10">
-				<%= image_tag "carousel/yoga1.png" %>
+			<div class="col-md-10" style="text-align:center">
+					<%= image_tag "carousel/yoga1.png", :class => "wide-image" %>
 			</div>
 			<div class="col-md-1"></div>
 		</div>

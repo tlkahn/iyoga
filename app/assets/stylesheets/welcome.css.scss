@@ -3,8 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .logo img {
-	width: 100%;
-	fill-opacity: 0.0;
+	.wide-image {
+		width: 100%;
+		fill-opacity: 0.0;
+	}
 }
 
 nav {
@@ -40,8 +42,12 @@ nav {
 	}
 }
 
-
 main {
+
+	.container {
+		margin-left: -20px;
+	}
+
 	.welcome-title {
 		margin-top: 20px;
 		font-size: 48px;
@@ -114,6 +120,10 @@ main {
 		text-align: center;
 	}
 
+	.icon-image {
+		display: none;
+	}
+
 	}
 
 	.account-menu {
@@ -146,6 +156,29 @@ main {
 
 	}
 
+	@mixin toggle-image {
+		img.icon-image {
+			display: block;
+			margin: auto;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		.welcome-img {
+			img.wide-image {
+				display: none;
+			}
+		}
+		.language-selector {
+			width: 100% !important;
+		}
+		.hide-phone {
+			display: none
+		}
+		main .container {
+			margin-left: 0;
+		}
+	}
+
 	@media all and (max-width: 1000px) {
 		.logo {
 			display: none
@@ -169,9 +202,7 @@ main {
 		.pull-down-button {
 			text-align: left;
 		}
-		.welcome-img img {
-			width: 100%
-		}
+		@include toggle-image;
 	}
 
 	@media all and (max-width: 800px) {
@@ -181,10 +212,12 @@ main {
 		.account-menu ul li {
 			float: left
 		}
+		@include toggle-image;
 	}
 
 	@media all and (max-width:550px) {
 		.fa-caret-down {
 			display: none !important;
 		}
+		@include toggle-image;
 	}
