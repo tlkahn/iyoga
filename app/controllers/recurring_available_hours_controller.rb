@@ -71,6 +71,6 @@ class RecurringAvailableHoursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recurring_available_hour_params
-    	params.require(:recurring_available_hour).permit(:instructor_id, :hours_from_week_start, :recurring_interval_id)
+    	params.require(:recurring_available_hour).permit(:instructor_id, :secs_from_start, :recurring_interval_id)
     end
   end

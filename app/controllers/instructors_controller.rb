@@ -15,6 +15,7 @@ class InstructorsController < ApplicationController
   # GET /instructors/new
   def new
     if user_signed_in?
+      #TODO restructure needed
       if Instructor.all.collect!{|i| i.user}.uniq.include?(User.find(current_user.id))
         redirect_to user_schedule_path(current_user)
       else
@@ -33,11 +34,31 @@ class InstructorsController < ApplicationController
   # POST /instructors.json
   def create
     @instructor = Instructor.new(instructor_params)
+
+    instructor_geolocation = InstructorGeolocation.new
+    instructor_geolocation.address = params[:geolocation]
+
+    instructor_geolocation.longitude = params[:lng]
+    instructor_geolocation.latitude = params[:lat]
+    instructor_geolocation.street = params[:rotue]
+    instructor_geolocation.street_number = params[:street_number]
+    instructor_geolocation.zip = params[:postal_code]
+    instructor_geolocation.city = params[:locality]
+    instructor_geolocation.country = params[:country]
+    instructor_geolocation.state = params[:administrative_area_level_1]
+
     @instructor.user_id = current_user.id
+
     respond_to do |format|
       if @instructor.save
-        format.html { redirect_to @instructor, notice: 'Instructor was successfully created.' }
-        format.json { render :show, status: :created, location: @instructor }
+        instructor_geolocation.instructor_id = @instructor.id
+        if instructor_geolocation.save
+          format.html { redirect_to @instructor, notice: 'Instructor was successfully created.' }
+          format.json { render :show, status: :created, location: @instructor }
+        else
+          format.html { render :new }
+          format.json { render json: @instructor_geolocation.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
         format.json { render json: @instructor.errors, status: :unprocessable_entity }

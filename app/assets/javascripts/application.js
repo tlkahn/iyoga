@@ -23,6 +23,7 @@
 //= require pickdate/picker.time
 //= require bootstrap-select/bootstrap-select
 //= require bootstrap-multiselect
+//= require geocomplete/jquery.geocomplete
 
 $(function() {
 	var top = $(".top");

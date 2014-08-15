@@ -1,0 +1,76 @@
+You are searching for
+<%= @date + @from + @to + @location + @style + @level %>
+
+<h1><%= @total_non_recurring_hours %> non_recurring_hours</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Instructor</th>
+      <th>User</th>
+      <th>Available hour start</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @non_recurring_hours.each do |non_recurring_hour| %>
+      <tr>
+        <td><%= non_recurring_hour.instructor_id %></td>
+        <td><%= Instructor.find(non_recurring_hour.instructor_id).user.id %></td>
+        <td><%= non_recurring_hour.available_hour_start %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1>Listing recurring_available_hours_day</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Instructor</th>
+      <th>User</th>
+      <th>hours_from_week_start</th>
+      <th>recurring_interval</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@recurring_available_hours_week.nil? %>
+      <% @recurring_available_hours_week.each do |recurring_available_hour| %>
+        <tr>
+          <td><%= recurring_available_hour.instructor_id %></td>
+          <td><%= Instructor.find(recurring_available_hour.instructor_id).user.id %></td>
+          <td><%= Time.now.beginning_of_week + recurring_available_hour.secs_from_start %></td>
+          <td><%= RecurringInterval.find(recurring_available_hour.recurring_interval_id).name %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h1>Listing recurring_available_hours_day</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Instructor</th>
+      <th>User</th>
+      <th>hours_from_day_start</th>
+      <th>recurring_interval</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@recurring_available_hours_day.nil? %>
+      <% @recurring_available_hours_day.each do |recurring_available_hour| %>
+        <tr>
+          <td><%= recurring_available_hour.instructor_id %></td>
+          <td><%= Instructor.find(recurring_available_hour.instructor_id).user.id %></td>
+          <td><%= Time.now.beginning_of_week + recurring_available_hour.secs_from_start %></td>
+          <td><%= RecurringInterval.find(recurring_available_hour.recurring_interval_id).name %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

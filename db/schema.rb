@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811055902) do
+ActiveRecord::Schema.define(version: 20140815093852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "instructor_geolocations", force: true do |t|
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "instructor_id"
+    t.string   "street"
+    t.string   "street_number"
+    t.string   "zip"
+    t.string   "city"
+    t.string   "country"
+    t.string   "state"
+  end
 
   create_table "instructors", force: true do |t|
     t.integer  "user_id"
@@ -23,14 +38,6 @@ ActiveRecord::Schema.define(version: 20140811055902) do
     t.string   "styles",       default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "street1"
-    t.string   "street2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.string   "zip"
-    t.float    "latitude"
-    t.float    "longitude"
   end
 
   create_table "messages", force: true do |t|
@@ -78,11 +85,11 @@ ActiveRecord::Schema.define(version: 20140811055902) do
 
   create_table "recurring_available_hours", force: true do |t|
     t.datetime "starting_time"
-    t.integer  "hours_from_week_start"
+    t.integer  "secs_from_start"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "instructor_id"
-    t.string   "recurring_interval_id"
+    t.integer  "recurring_interval_id"
   end
 
   create_table "recurring_intervals", force: true do |t|
@@ -102,6 +109,9 @@ ActiveRecord::Schema.define(version: 20140811055902) do
     t.string   "college"
     t.string   "language",       default: [], array: true
     t.string   "interest",       default: [], array: true
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
   end
 
   create_table "styles", force: true do |t|

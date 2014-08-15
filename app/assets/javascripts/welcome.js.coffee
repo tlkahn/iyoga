@@ -39,39 +39,58 @@ $(document).on "ready page:load", ->
 	newFrom = ""
 	newTo = ""
 	newSearchLocation = ""
+	oldStyle = $(".style-wrapper .filter-option").html()
+	oldLevel = $(".level-wrapper .filter-option").html()
 
 	stateCheckInterval = 500
 
-	setInterval ->
+	if $(".welcome-title").length > 0
+		setInterval ->
+			newDate = $(".datepicker-wrap form input").val()
+			newFrom = $(".timepicker-wrap form .timepicker")[0].value
+			newTo = $(".timepicker-wrap form .timepicker")[1].value
+			newSearchLocation = $(".search-location").val()
+			newStyle = $(".style-wrapper .filter-option").html()
+			newLevel = $(".level-wrapper .filter-option").html()
 
-		newDate = $(".datepicker-wrap form input").val()
-		newFrom = $(".timepicker-wrap form .timepicker")[0].value
-		newTo = $(".timepicker-wrap form .timepicker")[1].value
-		newSearchLocation = $(".search-location").val()
+			unless newDate is oldDate
+				$(document).trigger("dateChanged", [newDate])
+				oldDate = newDate
+			unless newFrom is oldFrom
+				$(document).trigger("fromChanged", [newFrom])
+				oldFrom = newFrom
+			unless newTo is oldTo
+				$(document).trigger("toChanged", [newTo])
+				oldTo = newTo
+			unless newSearchLocation is oldSearchLocation
+				$(document).trigger("searchLocationChanged", [newSearchLocation])
+				oldSearchLocation = newSearchLocation
+			unless newStyle is oldStyle
+				$(document).trigger("styleChanged", [newStyle])
+				oldStyle = newStyle
+			unless newLevel is oldLevel
+				$(document).trigger("levelChanged", [newLevel])
+				oldLevel = newLevel
+		, stateCheckInterval
 
-		unless newDate is oldDate
-			$(document).trigger("dateChanged")
-			oldDate = newDate
-		unless newFrom is oldFrom
-			$(document).trigger("fromChanged")
-			oldFrom = newFrom
-		unless newTo is oldTo
-			$(document).trigger("toChanged")
-			oldTo = newTo
-		unless newSearchLocation is oldSearchLocation
-			$(document).trigger("searchLocationChanged")
-			oldSearchLocation = newSearchLocation
+	$(document).on "dateChanged", (e, newDate) ->
+		$("#date-value").val(newDate)
 
-	, stateCheckInterval
-
-	$(document).on "dateChanged", ->
-		console.log "date changed"
-
-	$(document).on "fromChanged", ->
-		console.log "from changed"
+	$(document).on "fromChanged", (e, newFrom) ->
+		$("#from-value").val(newFrom)
 
 	$(document).on "toChanged", ->
-		console.log "to changed"
+		$("#to-value").val(newTo)
 
-	$(document).on "searchLocationChanged", ->
-		console.log "search location changed to", newSearchLocation
+	$(document).on "searchLocationChanged", (e, newSearchLocation) ->
+		$("#location-value").val(newSearchLocation)
+
+	$(document).on "styleChanged", (e, newStyle) ->
+		$("#style-value").val(newStyle)
+
+	$(document).on "levelChanged", (e, newLevel) ->
+		$("#level-value").val(newLevel)
+
+	return
+
+

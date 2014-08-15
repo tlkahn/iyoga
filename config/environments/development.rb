@@ -35,19 +35,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  #set up the default URL options for the Devise mailer in each environment. Here is a possible configuration (https://github.com/plataformatec/devise/)
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "railscasts.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
-  }
-
   # TODO: Ensure you have defined default url options in your environments files. Here is an example of default_url_options appropriate for a development environment in config/environments/development.rb:
   # config.action_mailer.default_url_options = { host: 'localhost:3000' }
   # config.action_mailer.default_url_options = {:host => 'yourdomain.com'}

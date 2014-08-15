@@ -124,6 +124,20 @@ main {
 		display: none;
 	}
 
+	$ivory-color: #fffff0;
+
+	.picker__input {
+		background-color: $ivory-color !important;
+	}
+
+	.welcome-components input {
+		background-color: $ivory-color !important;
+	}
+
+	.welcome-components button {
+		background-color: $ivory-color !important;
+	}
+
 	}
 
 	.account-menu {

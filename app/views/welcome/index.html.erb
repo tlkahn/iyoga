@@ -21,7 +21,7 @@
 					<input type="text" class="form-control search-query" placeholder="Search" />
 				</form>
 			</div>
-			<div class="col-md-1">&nbsp;</div>
+			<div class="col-md-1" style="z-index:-999">&nbsp;</div>
 			<div class="account-menu col-md-4 col-xs-12" >
 				<ul class="nav navbar-nav">
 					<% if user_signed_in? %>
@@ -102,26 +102,34 @@
 		<div class="row welcome-components">
 			<div class="col-md-2">&nbsp;</div>
 			<div class="col-md-3" style="padding-bottom:10px"><input type="text" class="search-location form-control" placeholder="Search location"></input></div>
-			<div class="col-md-3">
+			<div class="col-md-3 style-wrapper">
 				<select class="selectpicker" data-live-search="true" data-width="100%" multiple title="Style">
 					<option>Iyengar</option>
 					<option>Ashtanga Vinyasah</option>
-					<option>a</option>
+					<option>Hatha</option>
+					<option>Raja</option>
+					<option>Bikram</option>
 				</select>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 level-wrapper">
 				<select class="selectpicker" data-live-search="true" data-width="100%" multiple title="Level">
-					<option>b</option>
-					<option>b</option>
-					<option>b</option>
-					<option>b</option>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
 				</select>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12" style="text-align:center;margin-top:10px;margin-bottom:10px">
 				<form action="/search">
-					<input type="submit" class="btn btn-primary" value="Search" style="opacity:0.8">
+					<input style="display:none" type="text" name="date" id="date-value" />
+					<input style="display:none" type="text" name="from" id="from-value" />
+					<input style="display:none" type="text" name="to" id="to-value" />
+					<input style="display:none" type="text" name="location" id="location-value" />
+					<input style="display:none" type="text" name="style" id="style-value" />
+					<input style="display:none" type="text" name="level" id="level-value" />
+					<input type="submit" class="btn btn-primary" value="Search" style="opacity: 0.8;width: 23%;margin-left: 8.5%;">
 				</form>
 			</div>
 		</div>

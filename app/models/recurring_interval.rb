@@ -1,3 +1,3 @@
 class RecurringInterval < ActiveRecord::Base
-	belongs_to :RecurringAvailableInterval
+	has_one :recurring_available_hour
 end

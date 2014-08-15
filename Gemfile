@@ -61,3 +61,5 @@ gem 'omniauth-linkedin'
 gem 'bootstrap_form'
 
 gem 'kaminari'
+
+gem 'chronic'
