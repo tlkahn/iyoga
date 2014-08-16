@@ -16,11 +16,11 @@ class InstructorsController < ApplicationController
   def new
     if user_signed_in?
       #TODO restructure needed
-      if Instructor.all.collect!{|i| i.user}.uniq.include?(User.find(current_user.id))
-        redirect_to user_schedule_path(current_user)
-      else
+      # if Instructor.all.collect!{|i| i.user}.uniq.include?(User.find(current_user.id))
+      #   redirect_to user_schedule_path(current_user)
+      # else
         @instructor = Instructor.new
-      end
+      # end
     else
       redirect_to new_user_session_path, :notice => "Sign in to be a wonderful teacher"
     end
