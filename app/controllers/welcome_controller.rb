@@ -4,20 +4,22 @@ class WelcomeController < ApplicationController
   end
 
   def search
-  	@date = params[:date]
-  	@from = params[:from]
-  	@to = params[:to]
-  	@location = params[:location]
-  	@style = params[:style]
-  	@level = params[:level]
+    @date                = params[:date]
+    @from                = params[:from]
+    @to                  = params[:to]
+    @location            = params[:location]
+    @style               = params[:style]
+    @level               = params[:level]
+    @location_name       = params[:locationname]
+    @location            = params[:location]
 
-  	if @from
+  	if @from.length > 0
   		from_time = Chronic.parse("#{@date} #{@from}")
   	else
   		from_time = Time.new('1900-1-1')
   	end
 
-  	if @to
+  	if @to.length > 0
   		to_time = Chronic.parse("#{@date} #{@to}")
   	else
   		to_time = Time.new('9999-12-31')

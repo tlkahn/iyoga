@@ -101,7 +101,12 @@
 		</div>
 		<div class="row welcome-components">
 			<div class="col-md-2">&nbsp;</div>
-			<div class="col-md-3" style="padding-bottom:10px"><input type="text" class="search-location form-control" placeholder="Search location"></input></div>
+			<div class="col-md-3" style="padding-bottom:10px">
+				<div>
+					<input type="text" class="search-location form-control" placeholder="Search location" ></input>
+				</div>
+				<div id="geomap"></div>
+			</div>
 			<div class="col-md-3 style-wrapper">
 				<select class="selectpicker" data-live-search="true" data-width="100%" multiple title="Style">
 					<option>Iyengar</option>
@@ -121,18 +126,21 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12" style="text-align:center;margin-top:10px;margin-bottom:10px">
+			<div class="col-md-12 details-list" style="text-align:center;margin-top:10px;margin-bottom:10px">
 				<form action="/search">
 					<input style="display:none" type="text" name="date" id="date-value" />
 					<input style="display:none" type="text" name="from" id="from-value" />
 					<input style="display:none" type="text" name="to" id="to-value" />
-					<input style="display:none" type="text" name="location" id="location-value" />
+					<input style="display:none" type="text" name="locationname" id="location-value" />
 					<input style="display:none" type="text" name="style" id="style-value" />
 					<input style="display:none" type="text" name="level" id="level-value" />
+					<input style="display:none" class="form-control" name="location" type="text"></input>
+
 					<input type="submit" class="btn btn-primary" value="Search" style="opacity: 0.8;width: 23%;margin-left: 8.5%;">
 				</form>
 			</div>
 		</div>
+
 		<!-- 	<div class="row carousel-container">
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
@@ -155,5 +163,6 @@
 			</div>
 			<div class="col-md-1"></div>
 		</div>
+
 		</main>
 		<%= render "shared/footer"%>

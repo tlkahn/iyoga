@@ -61,6 +61,18 @@ main {
 	}
 	.welcome-components {
 		margin-top: 20px;
+
+		#geomap {
+			height:200px;
+			position:absolute;
+			z-index:1000;
+			width:90%;
+			opacity:0.7;
+			background-color:transparent !important;
+			margin-top: 5px;
+
+		}
+
 	}
 	.welcome-date-time {
 		margin-top: 20px;

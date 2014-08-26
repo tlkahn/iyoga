@@ -91,6 +91,10 @@ $(document).on "ready page:load", ->
 	$(document).on "levelChanged", (e, newLevel) ->
 		$("#level-value").val(newLevel)
 
+	$("input.search-location").geocomplete
+	  map: "#geomap"
+	  details: ".details-list"
+
 	return
 
 

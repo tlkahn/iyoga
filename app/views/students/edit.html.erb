@@ -10,6 +10,29 @@
 				</select>
 		</div>
 		<input type="text" name="student[styles]" class="selected-style" style="display:none">
+
+		<div>
+			<div><%= f.label "Address" %></div>
+			<div class="input-group" style="margin-bottom:10px">
+				<input type="text" class="geolocation form-control" name="geolocation"/>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Search</button>
+				</span>
+			</div>
+		</div>
+
+		<div id="geomap" style="height: 300px;margin-bottom:10px;background-color: #666"></div>
+		<div class="details-list">
+			<div class="field"><div class="form-group geo-info geo-info-lat"><b>Lat</b><input class="form-control" name="lat" type="text"></input></div></div>
+			<div class="field"><div class="form-group geo-info geo-info-lng"><b>Lng</b><input class="form-control" name="lng" type="text"></input></div></div>
+			<div class="field"><div class="form-group geo-info geo-info-street"><b>Route</b><input class="form-control" name="route" type="text"></input></div></div>
+			<div class="field"><div class="form-group geo-info geo-info-street-number"><b>Street Number</b><input class="form-control" name="street_number" type="text"></input></div></div>
+			<div class="field"><div class="form-group geo-info geo-info-zip"><b>Postal Code</b> <input class="form-control" name="postal_code" type="text"></input></div></div>
+			<div class="field"><div class="form-group geo-info geo-info-city"><b>Locality</b> <input class="form-control" name="locality" type="text"></input></div></div>
+			<div class="field"><div class="form-group geo-info geo-info-country"><b>Country Code</b> <input class="form-control" name="country" type="text"></input></div></div>
+			<div class="field"><div class="form-group geo-info geo-info-state"><b>State</b> <input class="form-control" name="administrative_area_level_1" type="text"></input></div></div>
+		</div>
+
 		<%= f.submit "Update" %>&nbsp;&nbsp;&nbsp;<%= link_to "Cancel", :root, class: "btn btn-default" %>
 		<% end %>
 	</div>
@@ -22,11 +45,14 @@
 	<div class="old-styles" style="display:none">
 		<%= @old_styles.to_json %>
 	</div>
-</div>
+	<div class="old-geolocation" style="display:none"><%= @student_geolocation.address %></div>
+	<div class="old-geolocation-details" style="display:none"><%= @student_geolocation.to_json %></div>
+
 
 <script type="text/javascript">
-	//have to use this immediate provoked function pattern to avoid a strange bug that multiselect does not work.
-	+function() {
+
+//have to use this immediate provoked function pattern to avoid a strange bug that multiselect does not work.
++function() {
 		var styles = $.parseJSON($(".styles").html());
 		var select = $("#student_style");
 		for (var i = 0; i < styles.length; i++) {
@@ -44,6 +70,22 @@
 		$(document).on("selectChange", function(event, newStyles) {
 			$(".selected-style").val(newStyles);
 		});
+
+		$(".geolocation").val($(".old-geolocation").html()).focus();
+		$(".geolocation").geocomplete({
+			map: "#geomap",
+			details: ".details-list"
+		});
+
+		var geolocationInfo = $.parseJSON($(".old-geolocation-details").html());
+		$("input[name='lng']").val(geolocationInfo.longitude);
+		$("input[name='lat']").val(geolocationInfo.latitude);
+		$("input[name='route']").val(geolocationInfo.street);
+		$("input[name='street_number']").val(geolocationInfo.street_number);
+		$("input[name='postal_code']").val(geolocationInfo.zip);
+		$("input[name='locality']").val(geolocationInfo.city);
+		$("input[name='country']").val(geolocationInfo.country);
+		$("input[name='administrative_area_level_1']").val(geolocationInfo.state);
 
 		var cb = function() {
 			if ($(".old-styles").length === 0) return;
@@ -82,4 +124,6 @@
 		setTimeout(cb, 0);
 
 	}()
+
 </script>
+

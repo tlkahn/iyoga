@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815093852) do
+ActiveRecord::Schema.define(version: 20140816140607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,21 @@ ActiveRecord::Schema.define(version: 20140815093852) do
     t.datetime "updated_at"
   end
 
+  create_table "student_geolocations", force: true do |t|
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.integer  "student_id"
+    t.string   "street"
+    t.string   "street_number"
+    t.string   "zip"
+    t.string   "city"
+    t.string   "country"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "students", force: true do |t|
     t.datetime "practice_since"
     t.string   "phone"
@@ -154,5 +169,14 @@ ActiveRecord::Schema.define(version: 20140815093852) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  CREATE OR REPLACE FUNCTION distance(lat1 FLOAT, lon1 FLOAT, lat2 FLOAT, lon2 FLOAT) RETURNS FLOAT AS $$
+  DECLARE
+  x float = 69.1 * (lat2 - lat1);
+  y float = 69.1 * (lon2 - lon1) * cos(lat1 / 57.3);
+  BEGIN
+  RETURN sqrt(x * x + y * y);
+  END $$
+  LANGUAGE plpgsql;
 
 end
