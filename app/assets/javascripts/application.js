@@ -33,8 +33,7 @@
 //= require bootstrap-switch/dist/js/bootstrap-switch
 //= require bootstrap-checkbox/js/bootstrap-checkbox
 
-//= require fullcalendar
-//= require gcal
+//= require fullcalendar/dist/fullcalendar
 
 // +(function() {
 // 	var top = $(".top");

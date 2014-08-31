@@ -65,6 +65,3 @@ gem 'kaminari'
 gem 'chronic'
 
 gem 'haml-rails'
-
-gem 'fullcalendar-rails'
-
