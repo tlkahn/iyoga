@@ -1,0 +1,57 @@
+%h1 Set your own schedule of yoga class
+%p Make your time  schedule to teach at your own place
+
+%ul.nav.nav-tabs{:role => "tablist"}
+  %li.active
+    %a{"data-toggle" => "tab", :href => "#scheduler", :role => "tab"} Quick schedule
+  %li
+    %a{"data-toggle" => "tab", :href => "#calendar-tab", :role => "tab"} Calendar
+
+
+.tab-content
+  #scheduler.tab-pane.active
+    .splitter
+    %fieldset#myScheduler.form-horizontal.container-fluid.scheduler{:role => "form"}
+      .col-md-6
+        %form
+          %label.styles{:for => "styles"}Styles
+          %select.selectpicker#styles
+            - @styles.each do |s|
+              %option{:value => s.id}=s.name
+          = link_to "Add", instructor_new_style_path(@instructor), :class => "btn btn-default"
+          .splitter
+          %label.levels{:for => "levels"}Levels
+          %select.selectpicker#levels
+            -@levels.each do |l|
+              %option{:value => l.id}=l.name
+          .splitter
+          %label Every
+          %select.selectpicker.weekdays
+            - @weekdays.each do |w|
+              %option{:value => w}=w
+          %input{type:"checkbox"}whole day
+          .splitter
+          %label From
+          %select.selectpicker.hours
+            - @hours.each do |h|
+              %option{:value => h}=h
+          .splitter
+          %label To
+          %select.selectpicker.hours
+            - @hours.each do |h|
+              %option{:value => h}=h
+          %hr
+          .splitter
+          %input{:type => "submit", :value => "Set as available", :class => "btn btn-primary"}
+      .col-md-6.help-text
+        %h2 Help text
+        Some explanation
+
+  #calendar-tab.tab-pane
+    #calendar
+
+
+
+
+
+

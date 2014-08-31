@@ -17,9 +17,21 @@
       <tr>
         <td><%= instructor.user_id %></td>
         <td><%= instructor.instructor_geolocations.first.address if instructor.instructor_geolocations.count > 0 %></td>
-        <td><%= instructor.certificates %></td>
+        <td>
+          <ul>
+          <% instructor.certificates.each do |c| %>
+            <li><%= c.title %></li>
+          <% end %>
+          </ul>
+        </td>
         <td><%= instructor.teach_since %></td>
-        <td><%= instructor.styles %></td>
+        <td>
+          <ul>
+            <% instructor.styles.each do |s|%>
+              <li><%= s.name %></li>
+            <% end %>
+          </ul>
+        </td>
         <td><%= link_to 'Show', instructor %></td>
         <td><%= link_to 'Edit', edit_instructor_path(instructor) %></td>
         <td><%= link_to 'Destroy', instructor, method: :delete, data: { confirm: 'Are you sure?' } %></td>

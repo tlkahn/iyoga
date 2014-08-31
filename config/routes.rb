@@ -1,10 +1,27 @@
 Rails.application.routes.draw do
 
+  resources :levels
+
+  resources :practices
+
+  resources :credentials
+
+  resources :styles
+
+  resources :institutes
+
+  resources :certificates
+
   resources :instructors do
     resources :non_recurring_hours
     resources :recurring_available_hours
   end
   resources :instructors
+  get 'instructors/:id/new_certificate' => "instructors#new_certificate", :as => "instructor_new_certificate"
+  post "instructors/:id/save_certificate"  => "instructors#save_certificate", :as => "save_certificate"
+  get 'instructors/:id/new_style' => "instructors#new_style", :as => "instructor_new_style"
+  post "instructors/:id/save_style"  => "instructors#save_style", :as => "save_style"
+  get 'instructors/:id/schedules' => "instructors#schedules", :as => "instructor_schedules"
 
   post '/instructor/:instructor_id/non_recurring_hours' => "non_recurring_hours#create", as: "create_non_recurring_hour"
 

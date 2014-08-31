@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Instructor:
+  = @practice.instructor_id
+%p
+  %b Style:
+  = @practice.style_id
+
+= link_to 'Edit', edit_practice_path(@practice)
+\|
+= link_to 'Back', practices_path

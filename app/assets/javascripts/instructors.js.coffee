@@ -14,12 +14,37 @@ $ ->
 		$("#geocomplete").val($(this).text()).trigger("geocode")
 		return false
 
-	# $(".geo-info input").keyup (e) ->
-	# 	streetNumber = if $(".geo-info-street-number input").val() then $(".geo-info-street-number input").val() else ""
-	# 	street = if $(".geo-info-street input").val() then $(".geo-info-street input").val() else ""
-	# 	city = if $(".geo-info-city input").val() then $(".geo-info-city input").val() else ""
-	# 	state = if $(".geo-info-state input").val() then $(".geo-info-state input").val() else ""
-	# 	country = if $(".geo-info-country input").val() then $(".geo-info-country input").val() else ""
-	# 	address = streetNumber + ", " + street + ", " + city + ", " + state + ", " + country
-	# 	$("input.geolocation").val(address)
-	# 	$("#geolocation").trigger("geocode")
+	styles = new Bloodhound(
+	  datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name")
+	  queryTokenizer: Bloodhound.tokenizers.whitespace
+	  limit: 10
+	  prefetch:
+
+	    url: "/styles.json"
+
+	    filter: (list) ->
+	      $.map list, (certificate) ->
+	        name: certificate.name
+
+	)
+
+	styles.initialize()
+
+	$("#style-search").typeahead null,
+	  name: "styles"
+	  displayKey: "name"
+	  source: styles.ttAdapter()
+
+	$(".selectpicker").selectpicker()
+	$(".timepicker").pickatime()
+
+	$($(".bootstrap-select li")[0]).removeClass "selected"
+
+	$(".selectpicker").addClass("selectpicker-remove-outline")
+
+	$('#calendar').fullCalendar()
+
+	$("a[data-toggle='tab']").on 'shown.bs.tab', (e) ->
+		$('#calendar').fullCalendar('render');
+
+

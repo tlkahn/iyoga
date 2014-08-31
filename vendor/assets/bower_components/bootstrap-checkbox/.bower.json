@@ -1,0 +1,14 @@
+{
+  "name": "bootstrap-checkbox",
+  "homepage": "https://github.com/montrezorro/bootstrap-checkbox",
+  "version": "1.0.0",
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "3c0b667ca9b6488ae7bab57e24a8965f04b47dc6"
+  },
+  "_source": "https://github.com/montrezorro/bootstrap-checkbox.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/montrezorro/bootstrap-checkbox.git"
+}

@@ -1,0 +1,16 @@
+= form_for @practice do |f|
+  - if @practice.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@practice.errors.count, "error")} prohibited this practice from being saved:"
+      %ul
+        - @practice.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :instructor_id
+    = f.number_field :instructor_id
+  .field
+    = f.label :style_id
+    = f.number_field :style_id
+  .actions
+    = f.submit 'Save'

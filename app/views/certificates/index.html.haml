@@ -1,0 +1,23 @@
+%h1 Listing certificates
+
+%table.table.table-striped
+  %tr
+    %th Title
+    %th Full Name
+    %th Institute
+    %th
+    %th
+    %th
+
+  - @certificates.each do |certificate|
+    %tr
+      %td= certificate.title
+      %td= certificate.full_name
+      %td= certificate.institute.name
+      %td= link_to 'Show', certificate
+      %td= link_to 'Edit', edit_certificate_path(certificate)
+      %td= link_to 'Destroy', certificate, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Certificate', new_certificate_path, :class => "btn btn-default"

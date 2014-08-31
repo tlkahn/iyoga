@@ -11,10 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816140607) do
+ActiveRecord::Schema.define(version: 20140830170249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "certificates", force: true do |t|
+    t.string   "title"
+    t.integer  "institute_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "full_name"
+  end
+
+  create_table "credentials", force: true do |t|
+    t.integer  "instructor_id"
+    t.integer  "certificate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "institutes", force: true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "instructor_geolocations", force: true do |t|
     t.string   "address"
@@ -33,9 +55,13 @@ ActiveRecord::Schema.define(version: 20140816140607) do
 
   create_table "instructors", force: true do |t|
     t.integer  "user_id"
-    t.string   "certificates", default: [], array: true
     t.date     "teach_since"
-    t.string   "styles",       default: [], array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "levels", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,6 +79,13 @@ ActiveRecord::Schema.define(version: 20140816140607) do
   create_table "non_recurring_hours", force: true do |t|
     t.integer  "instructor_id"
     t.datetime "available_hour_start"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "practices", force: true do |t|
+    t.integer  "instructor_id"
+    t.integer  "style_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -169,14 +202,5 @@ ActiveRecord::Schema.define(version: 20140816140607) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  CREATE OR REPLACE FUNCTION distance(lat1 FLOAT, lon1 FLOAT, lat2 FLOAT, lon2 FLOAT) RETURNS FLOAT AS $$
-  DECLARE
-  x float = 69.1 * (lat2 - lat1);
-  y float = 69.1 * (lon2 - lon1) * cos(lat1 / 57.3);
-  BEGIN
-  RETURN sqrt(x * x + y * y);
-  END $$
-  LANGUAGE plpgsql;
 
 end

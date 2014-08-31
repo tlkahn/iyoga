@@ -6,6 +6,14 @@ class User < ActiveRecord::Base
   has_one :instructor
   has_one :student
 
+  def is_instructor?
+    return ! self.instructor.nil?
+  end
+
+  def is_student?
+    return self.instructor.nil?
+  end
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
   	user = User.where(:provider => auth.provider, :uid => auth.uid).first
   	if user

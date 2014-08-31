@@ -21,21 +21,43 @@
         </span>
       </div>
     </div>
+    <div id="geomap" style="height: 300px;margin-bottom:10px;background-color: #666"></div>
     <div class="field">
-      <%= f.text_field :certificates %>
+    <% if @certificates && @certificates.length > 0 %>
+      <table class="table table-striped">
+        <% @certificates.each do |certificate| %>
+          <tr><td><%= certificate[0] %></tr>
+        <% end %>
+      </table>
+    <% else %>
+      You have no certificate yet.
+    <% end %>
+    <% unless @instructor.id.nil? %>
+      <%= link_to "Add", instructor_new_certificate_path(@instructor) %>
+    <% end %>
     </div>
     <div class="field">
       <%= f.date_select :teach_since %>
     </div>
     <div class="field">
-      <%= f.text_field :styles %>
+    <% if !@styles.nil? && @styles.length > 0 %>
+      <table class="table table-striped">
+        <% @styles.each do |style| %>
+          <tr><td><%= style[0] %></tr>
+        <% end %>
+      </table>
+    <% else %>
+      You have no style yet.
+    <% end %>
+    <% unless @instructor.id.nil? %>
+      <%= link_to "Add", instructor_new_style_path(@instructor) if @instructor %>
+    <% end %>
     </div>
     <div class="actions">
       <%= f.submit %> <%= link_to "Cancel", :back, class: "btn btn-default" %>
     </div>
   </div>
-  <div class="col-md-6 col-xs-12">
-    <div id="geomap" style="height: 300px;margin-bottom:10px;background-color: #666"></div>
+  <div class="col-md-6 col-xs-12" style="display:none">
     <div class="details-list">
       <div class="field"><div class="form-group geo-info geo-info-location"><b>Location</b><input class="form-control" disabled="disabled" name="location" type="text"></input></div></div>
       <div class="field"><div class="form-group geo-info geo-info-lat"><b>Lat</b><input class="form-control" disabled="disabled" name="lat" type="text"></input></div></div>

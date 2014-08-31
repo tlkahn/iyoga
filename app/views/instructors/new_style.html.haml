@@ -1,0 +1,15 @@
+%h1 New style
+
+- unless @styles.nil?
+  %p You have the following styles:
+  %ul
+    - @styles.each do |c|
+      %li= c[0]
+- else
+  You have no styles yet.
+
+%form{:role => "form", :action => save_style_path(@instructor), :method => "POST"}
+  .form-group
+    %label{:for => "style"} style
+    %input.form-control#style-search{:type => "text", :placeholder => "Styles",:name => "style_name"}
+  %button.btn.btn-default{:type => "submit"} Submit

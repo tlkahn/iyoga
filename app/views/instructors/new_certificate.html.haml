@@ -1,0 +1,15 @@
+%h1 New Certificate
+
+- unless @certificates.nil?
+  %p You have the following certificates:
+  %ul
+    - @certificates.each do |c|
+      %li= c[0]
+- else
+  You have no certificates yet.
+
+%form{:role => "form", :action => save_certificate_path(@instructor), :method => "POST"}
+  .form-group
+    %label{:for => "Certificate"} Certificate
+    %input.typeahead.form-control{:type => "text", :placeholder => "Certificates",:name => "certificate_name"}
+  %button.btn.btn-default{:type => "submit"} Submit

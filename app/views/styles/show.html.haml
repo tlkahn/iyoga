@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @style.name
+%p
+  %b Description:
+  = @style.description
+
+= link_to 'Edit', edit_style_path(@style)
+\|
+= link_to 'Back', styles_path

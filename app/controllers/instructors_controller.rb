@@ -1,5 +1,6 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, :only => [:save_certificate, :save_style]
 
   # GET /instructors
   # GET /instructors.json
@@ -19,7 +20,11 @@ class InstructorsController < ApplicationController
       # if Instructor.all.collect!{|i| i.user}.uniq.include?(User.find(current_user.id))
       #   redirect_to user_schedule_path(current_user)
       # else
+        @instructor = current_user.instructor
+
         @instructor = Instructor.new
+        @certificates = Certificate.all.map {|c| [c.title, c.id]}
+        @styles = Style.all.map {|c| [c.name, c.id]}
       # end
     else
       redirect_to new_user_session_path, :notice => "Sign in to be a wonderful teacher"
@@ -28,6 +33,82 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1/edit
   def edit
+    @instructor = current_user.instructor
+    if @instructor.id == params[:id].to_i
+      @certificates = @instructor.certificates.map {|c| [c.title, c.id]}
+      @styles = @instructor.styles.map {|c| [c.name, c.id]}
+    end
+  end
+
+  def new_certificate
+    @instructor = current_user.instructor
+    # if @instructor.id == params[:id]
+      @certificates = @instructor.certificates.map {|c| [c.title, c.id]}
+      @styles = @instructor.styles.map {|c| [c.name, c.id]}
+    # else
+      # render :back, :flash => "you are not authorized to change"
+    # end
+  end
+
+  def save_certificate
+    @certificate_name = params[:certificate_name]
+    if @certificate_name && @certificate_name.length>0
+      @instructor = Instructor.uncached_find(current_user.instructor.id)
+
+      @certificate_id = Certificate.find_by_title(@certificate_name).id
+      unless @certificate_id.nil?
+        @credential = Credential.new
+        @credential.instructor_id = @instructor.id
+        @credential.certificate_id = @certificate_id
+        @credential.save!
+        redirect_to instructor_path(@instructor), :notice => "successfully saved."
+      else
+        redirect_to :back, :notice => "no certificate with this title is found."
+      end
+
+    else
+      redirect_to :back, :notice => "invalid certificate"
+    end
+  end
+
+  def schedules
+    if current_user
+      @instructor = current_user.instructor
+      @styles = @instructor.styles
+      @levels = Level.all
+      @weekdays = Date::DAYNAMES
+      @hours = ["12am"].concat((1..11).to_a.map{|a|a.to_s + "am"}).concat(["12pm"]).concat((1..11).to_a.map{|a|a.to_s + "am"})
+    else
+      redirect_to :root
+    end
+  end
+
+  def new_style
+    @instructor = current_user.instructor
+    # if @instructor.id == params[:id]
+    @styles = @instructor.styles.map {|c| [c.name, c.id]}
+    # else
+      # render :back, :flash => "you are not authorized to change"
+    # end
+  end
+
+  def save_style
+    @style_name = params[:style_name]
+    if @style_name && @style_name.length>0
+      @instructor = Instructor.uncached_find(current_user.instructor.id)
+      @style_id = Style.find_by_name(@style_name).id
+      unless @style_id.nil?
+        @practice = Practice.new
+        @practice.instructor_id = @instructor.id
+        @practice.style_id = @style_id
+        @practice.save!
+        redirect_to instructor_path(@instructor), :notice => "successfully saved."
+      else
+        redirect_to :back, :notice => "no style with this title is found."
+      end
+    else
+      redirect_to :back, :notice => "invalid style"
+    end
   end
 
   # POST /instructors
@@ -103,6 +184,6 @@ class InstructorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_params
-      params.require(:instructor).permit(:user_id, :street1, :street2, :city, :state, :country, :zip, :certificates, :teach_since, :styles)
+      params.require(:instructor).permit(:user_id, :street1, :street2, :city, :state, :country, :zip, :certificates, :teach_since, :styles, :certificate_name)
     end
 end

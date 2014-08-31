@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require underscore/underscore
+//= require moment/moment
+
 //= require_tree .
 //= require angular
 //= require moment-with-langs
@@ -24,21 +26,39 @@
 //= require bootstrap-select/bootstrap-select
 //= require bootstrap-multiselect
 //= require geocomplete/jquery.geocomplete
+//= require typeahead/bloodhound
+//= require typeahead/typeahead.bundle
+//= require typeahead/typeahead.jquery
 
-$(function() {
-	var top = $(".top");
-	if (!!top.html().trim().length) {
-		top.show().delay(3000).fadeOut(1000, 'linear');
-	}
-	var dismiss = '[data-dismiss="alert"]';
-	$(document).on('close.bs.alert', function() {
-		top.hide();
-	});
+//= require bootstrap-switch/dist/js/bootstrap-switch
+//= require bootstrap-checkbox/js/bootstrap-checkbox
 
-	$("a[rel~=popover], .has-popover").popover();
-  $("a[rel~=tooltip], .has-tooltip").tooltip();
-	$('.datepicker').pickadate();
-	$('.timepicker').pickatime();
-	$('.selectpicker').selectpicker();
-	$('.multiselect').multiselect();
-});
+//= require fullcalendar
+//= require gcal
+
+// +(function() {
+// 	var top = $(".top");
+// 	if (!!top.html().trim().length) {
+// 		top.show().delay(3000).fadeOut(1000, 'linear');
+// 	}
+// 	var dismiss = '[data-dismiss="alert"]';
+// 	$(document).on('close.bs.alert', function() {
+// 		top.hide();
+// 	});
+
+  $(function() {
+    if ($(".alert-warning").html().trim().length === 0) {
+      $(".alert-warning").hide();
+    }
+    else {
+      window.setTimeout(function() { $(".alert-warning").alert('close'); }, 2000);
+    }
+    $("a[rel~=popover], .has-popover").popover();
+    $("a[rel~=tooltip], .has-tooltip").tooltip();
+    $('input[type="checkbox"]').checkbox();
+    $(".bootstrap-checkbox button").css({
+      "outline": "none"
+    })
+  })
+
+// })();

@@ -7,7 +7,11 @@
 
 <p>
   <strong>Certificates:</strong>
-  <%= @instructor.certificates %>
+  <ul>
+  	<% @instructor.certificates.each do |c| %>
+  		<li><%= c.title %></li>
+  	<% end %>
+  </ul>
 </p>
 
 <p>
@@ -17,7 +21,12 @@
 
 <p>
   <strong>Style:</strong>
-  <%= @instructor.styles %>
+  <ul>
+  	<% @instructor.styles.each do |s|%>
+  		<%= s.name %>
+  	<% end %>
+  </ul>
+
 </p>
 
 <%= link_to 'Edit', edit_instructor_path(@instructor) %> |

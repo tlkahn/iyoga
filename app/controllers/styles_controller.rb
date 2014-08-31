@@ -4,7 +4,6 @@ class StylesController < ApplicationController
   # GET /styles
   # GET /styles.json
   def index
-    # @styles = Style.all
     @styles = Style.all.page(params[:page]).per(5)
   end
 
@@ -26,11 +25,6 @@ class StylesController < ApplicationController
   # POST /styles.json
   def create
     @style = Style.new(style_params)
-    @style.name = view_context.capitalize_words_in_text(@style.name)
-
-    unless @style.name.split(" ").last == "Yoga"
-      @style.name << " Yoga"
-    end
 
     respond_to do |format|
       if @style.save

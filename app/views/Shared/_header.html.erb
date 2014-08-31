@@ -1,0 +1,77 @@
+<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="nav top-nav row">
+					<div class="logo col-md-1" >
+						<%= link_to (image_tag "logo.svg", :style => "width: 50px"), :root %>
+					</div>
+					<div class="browse col-md-1 col-xs-12" >
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+								Browse
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popular</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nearby</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Friends</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="searchbox col-md-3 col-xs-12" >
+						<form class="form-search form-inline">
+							<input type="text" class="form-control search-query" placeholder="Search" />
+						</form>
+					</div>
+					<div class="col-md-1" style="z-index:-999">&nbsp;</div>
+					<div class="account-menu col-md-4 col-xs-12" >
+						<ul class="nav navbar-nav">
+							<% if user_signed_in? %>
+							<li>
+								<div class="dropdown btn-group">
+									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+										<%=  current_user.email %>
+									</button>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+									<li role="presentation"><%= link_to "Edit your profile", edit_student_path(Student.find_by_user_id(current_user.id)) , :role => "menuitem", :tabindex => -1%></li>
+										<li role="presentation"><%= link_to "Account", edit_user_registration_path(current_user.id) , :role => "menuitem", :tabindex => -1%></li>
+										<li role="presentation"><%= link_to "Logout", destroy_user_session_path, method: :delete , :role => "menuitem", :tabindex => -1%></li>
+									</ul>
+								</div>
+							</li>
+							<li><a href="/inbox"><i class="fa fa-envelope fa-lg"></i></a></li>
+							<% else %>
+							<li><%= link_to "Sign up", new_user_registration_path %></li>
+							<li><%= link_to "Login", new_user_session_path %></li>
+							<li><a href="#">Help</a></li>
+							<% end %>
+						</ul>
+					</div>
+					<div class="teacher-access col-md-2 col-xs-12">
+						<% if current_user && current_user.is_instructor? and !InstructorGeolocation.find_by_instructor_id(current_user.instructor.id).nil? %>
+						<div class="dropdown btn-group">
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" data-hover="dropdown" data-delay="100">
+							Manage my studio
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation">
+								<%= link_to "My bookings", "#" %>
+								</li>
+								<li>
+									<%= link_to "Make schedules", instructor_schedules_path(current_user.instructor) %>
+								</li>
+								<li role="presentation">
+									<%= link_to "Studio Profile", edit_instructor_path(current_user.instructor) %>
+								</li>
+							</ul>
+						</div>
+						<% else %>
+							<%= link_to "I am a teacher", new_instructor_path, :class => "btn btn-default" %>
+						<% end %>
+					</div>
+					<div class="row">
+						<div class="col-md-12 col-xs-12">&nbsp;</div>
+					</div>
+				</div>
+			</div>
+		</nav>
