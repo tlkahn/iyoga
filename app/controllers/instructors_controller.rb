@@ -1,6 +1,6 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token, :only => [:save_certificate, :save_style]
+  skip_before_filter :verify_authenticity_token, :only => [:save_certificate, :save_style, :create_schedule]
 
   # GET /instructors
   # GET /instructors.json
@@ -81,6 +81,10 @@ class InstructorsController < ApplicationController
     else
       redirect_to :root
     end
+  end
+
+  def create_schedule
+    byebug
   end
 
   def new_style

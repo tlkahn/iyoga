@@ -10,3 +10,62 @@ div.splitter{
 label {
  width: 50px;
 }
+
+@mixin pull-checkbox {
+  position: relative;
+  left: 280px;
+  z-index: 100;
+}
+
+.make-recurring {
+  @include pull-checkbox;
+  top: -35px;
+}
+
+.make-whole-day {
+  position: relative;
+  top: -15px;
+  left: 280px;
+  z-index: 100;
+  margin-bottom: 9px;
+}
+.pull-into-place {
+  width:222px !important;
+  position: relative;top: -20px;left: 53px;
+}
+
+.pull-label {
+  position:relative;top:15px
+}
+
+.btn-link {
+  color: black !important
+}
+
+.recurring-input, .one-time-input {
+  padding-top: 20px;
+}
+
+.enable {
+    @include pull-checkbox;
+    top: -55px;
+}
+
+.add-exception {
+  display: inline-block;
+  cursor: pointer;
+  padding-bottom: 10px;
+}
+
+.remove-exception {
+  position: relative;
+  left: 290px;
+  z-index: 100;
+  top: -48px;
+}
+.exception-boxes{
+  display: none;
+}
+.exception-box{
+  height: 50px;
+}

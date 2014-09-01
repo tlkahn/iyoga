@@ -11,11 +11,9 @@
 
 nav {
 	padding-top: 10px;
-	padding-bottom: 8px;
 	.logo, .browse, .searchbox, .teacher-access {
 		position: relative;
 		top: 10px;
-		padding-bottom: 10px;
 	}
 }
 
@@ -139,15 +137,15 @@ main {
 	$ivory-color: #fffff0;
 
 	.picker__input {
-		background-color: $ivory-color !important;
+		background-color: white !important;
 	}
 
 	.welcome-components input {
-		background-color: $ivory-color !important;
+		background-color: white !important;
 	}
 
 	.welcome-components button {
-		background-color: $ivory-color !important;
+		background-color: white !important;
 	}
 
 	}

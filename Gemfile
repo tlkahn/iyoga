@@ -65,3 +65,5 @@ gem 'kaminari'
 gem 'chronic'
 
 gem 'haml-rails'
+
+gem 'ice_cube'

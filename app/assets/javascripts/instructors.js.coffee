@@ -14,6 +14,74 @@ $ ->
     $("#geocomplete").val($(this).text()).trigger("geocode")
     return false
 
+  # for debug
+  # $('input[type="checkbox"]').change (e) ->
+  #   console.log e.target.checked
+  # end
+
+  $(".one-time-input .make-whole-day input[type='checkbox']").change (e) ->
+    $(document).trigger("make-whole-day", e.target.checked)
+    $elem = $(".one-time-input select.hours")
+    unless !e.target.checked
+      $elem.attr("disabled", "disabled")
+    else
+      $elem.removeAttr('disabled')
+    $elem.selectpicker('refresh')
+
+
+  $(".recurring-input .make-whole-day input[type='checkbox']").change (e) ->
+    $(document).trigger("make-whole-day", e.target.checked)
+    $elem = $(".recurring-input select.hours")
+    unless !e.target.checked
+      $elem.attr("disabled", "disabled")
+    else
+      $elem.removeAttr('disabled')
+    $elem.selectpicker('refresh')
+
+  exception_box = 0
+
+  removeException = (self) ->
+    $self = $(self)
+    $(document).trigger "recurring_exception_removed", $self.parent().find("input").val()
+    $self.parent().remove()
+
+  $(".remove-exception").click (e) ->
+    removeException(@)
+
+  $(".add-exception").click ->
+    $(".exception-boxes").show()
+    exception_box += 1
+    if exception_box > 1
+      $(".exception-boxes").append """
+
+      <div class="exception-box">
+        <p class="pull-label">
+          <b>Except</b>
+        </p>
+        <div class="input-group date bsdatepicker pull-into-place" id="e#{exception_box}">
+          <input class="form-control" type="text">
+          <span class="input-group-addon">
+            <i class="glyphicon glyphicon-th"></i>
+          </span>
+        </div>
+          <span class="remove-exception">
+            <span class="glyphicon glyphicon-minus"></span>
+          </span>
+      </div>
+      """
+      $("#e#{exception_box} ").datepicker()
+      $(".remove-exception").click (e) ->
+        removeException(@)
+      $('body').scrollTop $("#e#{exception_box}").offset().top
+
+  $(".enable input").change (e) ->
+    $elem = $(".until-date input")
+    if e.target.checked
+      $elem.removeAttr "disabled"
+    else
+      $elem.attr("disabled", "disabled")
+    $(".until-date").datepicker('refresh')
+
   styles = new Bloodhound(
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name")
     queryTokenizer: Bloodhound.tokenizers.whitespace
@@ -25,7 +93,6 @@ $ ->
       filter: (list) ->
         $.map list, (certificate) ->
           name: certificate.name
-
   )
 
   styles.initialize()
@@ -35,7 +102,9 @@ $ ->
     displayKey: "name"
     source: styles.ttAdapter()
 
-  $(".selectpicker").selectpicker()
+  $(".selectpicker").selectpicker().change (e) ->
+    console.log e.target, e.selectedIndex
+
   $(".timepicker").pickatime()
 
   $($(".bootstrap-select li")[0]).removeClass "selected"
@@ -49,9 +118,6 @@ $ ->
     # console.log('Current view: ' + view.name)
     # $(@).css('background-color', 'red')
 
-
-
-
   $("a[data-toggle='tab']").on 'shown.bs.tab', (e) ->
     $('#calendar').fullCalendar('render');
 
@@ -64,19 +130,17 @@ $ ->
     defaultDate: "2014-09-12"
     selectable: true
     selectHelper: true
-    select: (start, end) ->
+    select: (start, end, jsEvent, view) ->
       title = prompt("Event Title:")
       if title
         eventData =
           title: title
           start: start
           end: end
-          allDay: false
-
-        $("#calendar").fullCalendar "renderEvent", eventData, false # stick? = true
+          allDay: if view == "month" then true else false
+        $("#calendar").fullCalendar "renderEvent", eventData, true # stick? = true
       $("#calendar").fullCalendar "unselect"
       return
-
     editable: true
     eventLimit: true # allow "more" link when too many events
     events: [
@@ -135,7 +199,6 @@ $ ->
         start: "2014-09-28"
       }
     ]
-
 
 
 

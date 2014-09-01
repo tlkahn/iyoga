@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+
 //= require underscore/underscore
 //= require moment/moment
 
@@ -32,6 +33,7 @@
 
 //= require bootstrap-switch/dist/js/bootstrap-switch
 //= require bootstrap-checkbox/js/bootstrap-checkbox
+//= require bootstrap-datepicker/js/bootstrap-datepicker
 
 //= require fullcalendar/dist/fullcalendar
 
@@ -58,6 +60,7 @@
     $(".bootstrap-checkbox button").css({
       "outline": "none"
     })
+    $('.bsdatepicker').datepicker()
   })
 
 // })();

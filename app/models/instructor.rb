@@ -1,4 +1,8 @@
 class Instructor < ActiveRecord::Base
+
+  # include IceCube
+  # serialize :schedule, IceCube::Schedule
+
 	belongs_to :user
 	has_many :non_recurring_hours
 	has_many :recurring_available_hours

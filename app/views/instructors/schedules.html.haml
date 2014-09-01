@@ -1,54 +1,125 @@
+
 %h1 Set your own schedule of yoga class
 %p Make your time  schedule to teach at your own place
 
-%ul.nav.nav-tabs{:role => "tablist"}
-  %li.active
-    %a{"data-toggle" => "tab", :href => "#scheduler", :role => "tab"} Quick schedule
-  %li
-    %a{"data-toggle" => "tab", :href => "#calendar-tab", :role => "tab"} Calendar
+.container
+  %ul.nav.nav-tabs{:role => "tablist"}
+    %li.active
+      %a{"data-toggle" => "tab", :href => "#scheduler-recurring", :role => "tab"} Recurring Schedule
+    %li
+      %a{"data-toggle" => "tab", :href => "#scheduler-once", :role => "tab"} One-time Schedule
+    %li
+      %a{"data-toggle" => "tab", :href => "#calendar-tab", :role => "tab"} Calendar
 
-
-.tab-content
-  #scheduler.tab-pane.active
-    .splitter
-    %fieldset#myScheduler.form-horizontal.container-fluid.scheduler{:role => "form"}
+  .tab-content
+    #scheduler-recurring.tab-pane.active
       .col-md-6
-        %form
-          %label.styles{:for => "styles"}Styles
-          %select.selectpicker#styles
-            - @styles.each do |s|
-              %option{:value => s.id}=s.name
-          = link_to "Add", instructor_new_style_path(@instructor), :class => "btn btn-default"
-          .splitter
-          %label.levels{:for => "levels"}Levels
-          %select.selectpicker#levels
-            -@levels.each do |l|
-              %option{:value => l.id}=l.name
-          .splitter
-          %label Every
-          %select.selectpicker.weekdays
-            - @weekdays.each do |w|
-              %option{:value => w}=w
-          %input{type:"checkbox"}whole day
-          .splitter
-          %label From
-          %select.selectpicker.hours
-            - @hours.each do |h|
-              %option{:value => h}=h
-          .splitter
-          %label To
-          %select.selectpicker.hours
-            - @hours.each do |h|
-              %option{:value => h}=h
+        %form{method:"POST",action: create_schedule_path(@instructor)}
+          .recurring-input
+            %label.styles{:for => "styles"}Styles
+            %select.selectpicker#styles{name:"style"}
+              - @styles.each do |s|
+                %option{:value => s.id}=s.name
+            %span{style:"margin-left:15px !important"}
+              %a{href: instructor_new_style_path(@instructor)}
+                %span.glyphicon.glyphicon-plus
+            .splitter
+            %label.levels{:for => "levels"}Levels
+            %select.selectpicker#level{name:"level"}
+              -@levels.each do |l|
+                %option{:value => l.id}=l.name
+            .splitter
+            %label Every
+            %select.selectpicker.weekdays{name:"day"}
+              - @weekdays.each do |h|
+                %option{:value => h}=h
+            .splitter{style: "margin-top:-40px"}
+            .make-whole-day
+              %input{type:"checkbox", name:"is_whole_day"}whole day
+            %label From
+            %select.selectpicker.hours{name:"from"}
+              - @hours.each do |h|
+                %option{:value => h}=h
+            .splitter
+            %label To
+            %select.selectpicker.hours{name: "to"}
+              - @hours.each do |h|
+                %option{:value => h}=h
+            .splitter{style:"margin-top:-8px"}
+            %p.pull-label
+              %b Until
+            .input-group.date.until-date.bsdatepicker.pull-into-place
+              %input.form-control{:type => "text", :disabled => "disabled"}
+              %span.input-group-addon
+                %i.glyphicon.glyphicon-th
+            .enable
+              %input{type:"checkbox"}Enable
+            .splitter{:style => "margin-top:-30px"}
+            .exceptions
+              .add-exception
+                %b Add Exceptions
+              .exception-boxes
+                .exception-box
+                  %p.pull-label
+                    %b Except
+                  .input-group.date.bsdatepicker.pull-into-place#e1
+                    %input.form-control{:type => "text"}
+                    %span.input-group-addon
+                      %i.glyphicon.glyphicon-th
+                  %span.remove-exception
+                    %span.glyphicon.glyphicon-minus
+
           %hr
-          .splitter
-          %input{:type => "submit", :value => "Set as available", :class => "btn btn-primary"}
+          %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
       .col-md-6.help-text
         %h2 Help text
-        Some explanation
+        %p {{date}}
+    #scheduler-once.tab-pane
+      .col-md-6
+        %form
+          .one-time-input
+            %label.styles{:for => "styles"}Styles
+            %select.selectpicker#styles
+              - @styles.each do |s|
+                %option{:value => s.id}=s.name
+            %span{style:"margin-left:15px !important"}
+              %a{href: instructor_new_style_path(@instructor)}
+                %span.glyphicon.glyphicon-plus
+            .splitter
+            %label.levels{:for => "levels"}Levels
+            %select.selectpicker#levels
+              -@levels.each do |l|
+                %option{:value => l.id}=l.name
+            .wrapper
+              %p.pull-label
+                %b On
+              .input-group.date.bsdatepicker.pull-into-place
+                %input.form-control{:type => "text"}
+                %span.input-group-addon
+                  %i.glyphicon.glyphicon-th
 
-  #calendar-tab.tab-pane
-    #calendar
+            .splitter{style: "margin-top:-52px"}
+            .make-whole-day
+              %input{type:"checkbox"}whole day
+            %label From
+            %select.selectpicker.hours
+              - @hours.each do |h|
+                %option{:value => h}=h
+            .splitter
+            %label To
+            %select.selectpicker.hours
+              - @hours.each do |h|
+                %option{:value => h}=h
+          %hr
+        %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
+
+
+      .col-md-6.help-text
+        %h2 Help text
+        %p {{date}}
+
+    #calendar-tab.tab-pane
+      #calendar
 
 
 

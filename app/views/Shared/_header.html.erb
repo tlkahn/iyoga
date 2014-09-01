@@ -8,7 +8,7 @@
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 								Browse
-								<span class="caret"></span>
+								<span class="fa fa-caret-down"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Favorite</a></li>
@@ -31,6 +31,7 @@
 								<div class="dropdown btn-group">
 									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
 										<%=  current_user.email %>
+                    <span class="fa fa-caret-down"></span>
 									</button>
 									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 									<li role="presentation"><%= link_to "Edit your profile", edit_student_path(Student.find_by_user_id(current_user.id)) , :role => "menuitem", :tabindex => -1%></li>
@@ -52,6 +53,7 @@
 						<div class="dropdown btn-group">
 							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" data-hover="dropdown" data-delay="100">
 							Manage my studio
+              <span class="fa fa-caret-down"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation">

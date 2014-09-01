@@ -16,11 +16,12 @@
   ],
   "dependencies": {
     "underscore": "~1.7.0",
-    "fuelux": "~3.0.1",
     "selectboxit": "https://github.com/gfranko/jquery.selectBoxIt.js.git",
     "bootstrap-switch": "https://github.com/nostalgiaz/bootstrap-switch.git",
     "bootstrap-calendar": "~0.2.4",
     "bootstrap-checkbox": "https://github.com/montrezorro/bootstrap-checkbox.git",
-    "fullcalendar": "https://github.com/arshaw/fullcalendar.git"
+    "fullcalendar": "https://github.com/arshaw/fullcalendar.git",
+    "bootstrap-datepicker": "https://github.com/eternicode/bootstrap-datepicker.git",
+    "bootstrap": "https://github.com/twbs/bootstrap.git"
   }
 }

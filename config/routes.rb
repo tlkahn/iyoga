@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'instructors/:id/new_style' => "instructors#new_style", :as => "instructor_new_style"
   post "instructors/:id/save_style"  => "instructors#save_style", :as => "save_style"
   get 'instructors/:id/schedules' => "instructors#schedules", :as => "instructor_schedules"
+  post "instructors/:id/schedules"  => "instructors#create_schedule", :as => "create_schedule"
 
   post '/instructor/:instructor_id/non_recurring_hours' => "non_recurring_hours#create", as: "create_non_recurring_hour"
 
