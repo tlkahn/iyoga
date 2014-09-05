@@ -5,17 +5,23 @@
 .container
   %ul.nav.nav-tabs{:role => "tablist"}
     %li.active
-      %a{"data-toggle" => "tab", :href => "#scheduler-recurring", :role => "tab"} Recurring Schedule
+      %a{"data-toggle" => "tab", :href => "#scheduler-weekly", :role => "tab"} Weekly Schedule
+    %li
+      %a{"data-toggle" => "tab", :href => "#scheduler-daily", :role => "tab"} Daily Schedule
     %li
       %a{"data-toggle" => "tab", :href => "#scheduler-once", :role => "tab"} One-time Schedule
     %li
       %a{"data-toggle" => "tab", :href => "#calendar-tab", :role => "tab"} Calendar
 
+  .instructor{style:"display:none"}
+    =@instructor.id
+
   .tab-content
-    #scheduler-recurring.tab-pane.active
+    #scheduler-weekly.tab-pane.active
       .col-md-6
         %form{method:"POST",action: create_schedule_path(@instructor)}
-          .recurring-input
+          .weekly-recurring-input.form-wrapper
+            %input{type:"text", name:"recurring_period", style:"display:none", value:"weekly"}
             %label.styles{:for => "styles"}Styles
             %select.selectpicker#styles{name:"style"}
               - @styles.each do |s|
@@ -30,12 +36,13 @@
                 %option{:value => l.id}=l.name
             .splitter
             %label Every
-            %select.selectpicker.weekdays{name:"day"}
-              - @weekdays.each do |h|
-                %option{:value => h}=h
+            %select.selectpicker.wdays{name:"wday"}
+              - @wdays.each do |d|
+                %option{:value => d}=d
             .splitter{style: "margin-top:-40px"}
             .make-whole-day
               %input{type:"checkbox", name:"is_whole_day"}whole day
+              %input{type:"text", style:"display:none", value:"false", name:"is-whole-day-default"}
             %label From
             %select.selectpicker.hours{name:"from"}
               - @hours.each do |h|
@@ -49,7 +56,7 @@
             %p.pull-label
               %b Until
             .input-group.date.until-date.bsdatepicker.pull-into-place
-              %input.form-control{:type => "text", :disabled => "disabled"}
+              %input.form-control{:type => "text", :disabled => "disabled", :name => "until_date"}
               %span.input-group-addon
                 %i.glyphicon.glyphicon-th
             .enable
@@ -63,7 +70,7 @@
                   %p.pull-label
                     %b Except
                   .input-group.date.bsdatepicker.pull-into-place#e1
-                    %input.form-control{:type => "text"}
+                    %input.form-control{type: "text", name:"exceptions[]"}
                     %span.input-group-addon
                       %i.glyphicon.glyphicon-th
                   %span.remove-exception
@@ -72,14 +79,24 @@
           %hr
           %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
       .col-md-6.help-text
-        %h2 Help text
-        %p {{date}}
-    #scheduler-once.tab-pane
+        %h2 Your available time slots
+        %ul
+        - @instructor.recurring_schedules.each do |s|
+          -from = unless s.is_whole_day then s.from.to_s else "" end
+          -to = unless s.is_whole_day then s.to.to_s else "" end
+          %li
+            %span.schedule-prefix
+              %span.from=from
+              %span.to=to
+            %span.schedule=s.schedule.to_s
+
+    #scheduler-daily.tab-pane
       .col-md-6
-        %form
-          .one-time-input
+        %form{method:"POST",action: create_schedule_path(@instructor)}
+          .daily-recurring-input.form-wrapper
+            %input{type:"text", name:"recurring_period", style:"display:none", value: "daily"}
             %label.styles{:for => "styles"}Styles
-            %select.selectpicker#styles
+            %select.selectpicker#styles{name:"style"}
               - @styles.each do |s|
                 %option{:value => s.id}=s.name
             %span{style:"margin-left:15px !important"}
@@ -87,39 +104,100 @@
                 %span.glyphicon.glyphicon-plus
             .splitter
             %label.levels{:for => "levels"}Levels
-            %select.selectpicker#levels
+            %select.selectpicker#level{name:"level"}
+              -@levels.each do |l|
+                %option{:value => l.id}=l.name
+            .splitter
+            %label.day{for:"day",style:"position:relative;top:10px"}Day
+            .input-group.date.day.bsdatepicker.pull-into-place
+              %input.form-control{:type => "text", :name => "day"}
+              %span.input-group-addon
+                %i.glyphicon.glyphicon-th
+            %label From
+            %select.selectpicker.hours{name:"from"}
+              - @hours.each do |h|
+                %option{:value => h}=h
+            .splitter
+            %label To
+            %select.selectpicker.hours{name: "to"}
+              - @hours.each do |h|
+                %option{:value => h}=h
+            .splitter{style:"margin-top:-38px"}
+            .make-whole-day
+              %input{type:"checkbox", name:"is_whole_day", value:""}whole day
+              %input{type:"text", style:"display:none", value:"false", name:"is-whole-day-default"}
+            %p.pull-label
+              %b Until
+            .input-group.date.until-date.bsdatepicker.pull-into-place
+              %input.form-control{:type => "text", :disabled => "disabled", :name => "until_date"}
+              %span.input-group-addon
+                %i.glyphicon.glyphicon-th
+            .enable
+              %input{type:"checkbox"}Enable
+            .splitter{:style => "margin-top:-30px"}
+            .exceptions
+              .add-exception
+                %b Add Exceptions
+              .exception-boxes
+                .exception-box
+                  %p.pull-label
+                    %b Except
+                  .input-group.date.bsdatepicker.pull-into-place#e1
+                    %input.form-control{type: "text", name:"exceptions[]"}
+                    %span.input-group-addon
+                      %i.glyphicon.glyphicon-th
+                  %span.remove-exception
+                    %span.glyphicon.glyphicon-minus
+
+          %hr
+          %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
+      .col-md-6.help-text
+        %h2 Your available time slots
+    #scheduler-once.tab-pane
+      .col-md-6
+        %form{method:"POST",action: create_schedule_path(@instructor)}
+          .one-time-input.form-wrapper
+            %input{type:"text", name:"recurring_period", style:"display:none",value:"onetime"}
+            %label.styles{:for => "styles"}Styles
+            %select.selectpicker#styles{name:"style"}
+              - @styles.each do |s|
+                %option{:value => s.id}=s.name
+            %span{style:"margin-left:15px !important"}
+              %a{href: instructor_new_style_path(@instructor)}
+                %span.glyphicon.glyphicon-plus
+            .splitter
+            %label.levels{:for => "levels"}Levels
+            %select.selectpicker#levels{:name => "level"}
               -@levels.each do |l|
                 %option{:value => l.id}=l.name
             .wrapper
               %p.pull-label
                 %b On
               .input-group.date.bsdatepicker.pull-into-place
-                %input.form-control{:type => "text"}
+                %input.form-control{:type => "text", name:"day"}
                 %span.input-group-addon
                   %i.glyphicon.glyphicon-th
-
             .splitter{style: "margin-top:-52px"}
             .make-whole-day
-              %input{type:"checkbox"}whole day
+              %input{type:"checkbox", name:"is_whole_day"}whole day
             %label From
-            %select.selectpicker.hours
+            %select.selectpicker.hours{name: "from"}
               - @hours.each do |h|
                 %option{:value => h}=h
             .splitter
             %label To
-            %select.selectpicker.hours
+            %select.selectpicker.hours{name: "to"}
               - @hours.each do |h|
                 %option{:value => h}=h
           %hr
-        %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
-
+          %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
 
       .col-md-6.help-text
-        %h2 Help text
-        %p {{date}}
+        %h2 Your current available time slots
 
     #calendar-tab.tab-pane
-      #calendar
+      .form-wrapper
+        #calendar
 
 
 

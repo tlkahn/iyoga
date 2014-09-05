@@ -1,0 +1,21 @@
+%h1 Listing recurring_schedule_exceptions
+
+%table
+  %tr
+    %th Recurring schedule
+    %th Day
+    %th
+    %th
+    %th
+
+  - @recurring_schedule_exceptions.each do |recurring_schedule_exception|
+    %tr
+      %td= recurring_schedule_exception.recurring_schedule_id
+      %td= recurring_schedule_exception.day
+      %td= link_to 'Show', recurring_schedule_exception
+      %td= link_to 'Edit', edit_recurring_schedule_exception_path(recurring_schedule_exception)
+      %td= link_to 'Destroy', recurring_schedule_exception, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Recurring schedule exception', new_recurring_schedule_exception_path

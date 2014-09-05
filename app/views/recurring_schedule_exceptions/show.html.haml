@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Recurring schedule:
+  = @recurring_schedule_exception.recurring_schedule_id
+%p
+  %b Day:
+  = @recurring_schedule_exception.day
+
+= link_to 'Edit', edit_recurring_schedule_exception_path(@recurring_schedule_exception)
+\|
+= link_to 'Back', recurring_schedule_exceptions_path

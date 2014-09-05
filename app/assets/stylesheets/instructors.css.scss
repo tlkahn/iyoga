@@ -29,6 +29,11 @@ label {
   z-index: 100;
   margin-bottom: 9px;
 }
+
+.make-whole-day-2 {
+  @extend .make-whole-day;
+}
+
 .pull-into-place {
   width:222px !important;
   position: relative;top: -20px;left: 53px;
@@ -42,7 +47,7 @@ label {
   color: black !important
 }
 
-.recurring-input, .one-time-input {
+.form-wrapper {
   padding-top: 20px;
 }
 
@@ -68,4 +73,8 @@ label {
 }
 .exception-box{
   height: 50px;
+}
+
+#calendar {
+  padding-bottom: 20px;
 }

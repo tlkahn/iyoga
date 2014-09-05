@@ -1,0 +1,31 @@
+= bootstrap_form_for @recurring_schedule do |f|
+  - if @recurring_schedule.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@recurring_schedule.errors.count, "error")} prohibited this recurring_schedule from being saved:"
+      %ul
+        - @recurring_schedule.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :style_id
+    = f.number_field :style_id, hide_label:true
+  .field
+    = f.label :level_id
+    = f.number_field :level_id, hide_label:true
+  .field
+    = f.label :recurring_period_id
+    = f.number_field :recurring_period_id, hide_label:true
+  .field
+    = f.label :day
+    = f.text_field :day, hide_label:true
+  .field
+    = f.label :from
+    = f.time_select :from, hide_label:true
+  .field
+    = f.label :to
+    = f.time_select :to, hide_label:true
+  .field
+    = f.label :until
+    = f.datetime_select :until, hide_label:true
+  .actions
+    = f.submit 'Save'

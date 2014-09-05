@@ -1,0 +1,19 @@
+%h1 Listing recurring_periods
+
+%table
+  %tr
+    %th Name
+    %th
+    %th
+    %th
+
+  - @recurring_periods.each do |recurring_period|
+    %tr
+      %td= recurring_period.name
+      %td= link_to 'Show', recurring_period
+      %td= link_to 'Edit', edit_recurring_period_path(recurring_period)
+      %td= link_to 'Destroy', recurring_period, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Recurring period', new_recurring_period_path

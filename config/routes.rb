@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :days
+
+  resources :recurring_periods
+
+  resources :recurring_schedule_exceptions
+
+  resources :recurring_schedules
+
   resources :levels
 
   resources :practices
@@ -23,6 +31,8 @@ Rails.application.routes.draw do
   post "instructors/:id/save_style"  => "instructors#save_style", :as => "save_style"
   get 'instructors/:id/schedules' => "instructors#schedules", :as => "instructor_schedules"
   post "instructors/:id/schedules"  => "instructors#create_schedule", :as => "create_schedule"
+
+  post 'instructors/:id/schedules/get_ocurrences' => "instructors#get_occurrences", :as  => "get_occurrences"
 
   post '/instructor/:instructor_id/non_recurring_hours' => "non_recurring_hours#create", as: "create_non_recurring_hour"
 

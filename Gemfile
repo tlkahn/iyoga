@@ -63,6 +63,7 @@ gem 'bootstrap_form'
 gem 'kaminari'
 
 gem 'chronic'
+gem 'chronic_duration'
 
 gem 'haml-rails'
 

@@ -1,4 +1,4 @@
-= form_for @institute do |f|
+= bootstrap_form_for @institute do |f|
   - if @institute.errors.any?
     #error_explanation
       %h2= "#{pluralize(@institute.errors.count, "error")} prohibited this institute from being saved:"

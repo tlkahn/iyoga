@@ -1,4 +1,4 @@
-= form_for @style do |f|
+= bootstrap_form_for @style do |f|
   - if @style.errors.any?
     #error_explanation
       %h2= "#{pluralize(@style.errors.count, "error")} prohibited this style from being saved:"

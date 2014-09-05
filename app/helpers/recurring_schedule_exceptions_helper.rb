@@ -1,0 +1,2 @@
+module RecurringScheduleExceptionsHelper
+end

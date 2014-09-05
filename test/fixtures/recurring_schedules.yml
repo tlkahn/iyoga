@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  style_id: 1
+  level_id: 1
+  recurring_period_id: 1
+  day: MyString
+  from: 2014-09-02 09:22:36
+  to: 2014-09-02 09:22:36
+  until: 2014-09-02 09:22:36
+
+two:
+  style_id: 1
+  level_id: 1
+  recurring_period_id: 1
+  day: MyString
+  from: 2014-09-02 09:22:36
+  to: 2014-09-02 09:22:36
+  until: 2014-09-02 09:22:36

@@ -1,0 +1,31 @@
+%h1 Listing recurring_schedules
+
+%table
+  %tr
+    %th Style
+    %th Level
+    %th Recurring period
+    %th Day
+    %th From
+    %th To
+    %th Until
+    %th
+    %th
+    %th
+
+  - @recurring_schedules.each do |recurring_schedule|
+    %tr
+      %td= recurring_schedule.style_id
+      %td= recurring_schedule.level_id
+      %td= recurring_schedule.recurring_period_id
+      %td= recurring_schedule.day
+      %td= recurring_schedule.from
+      %td= recurring_schedule.to
+      %td= recurring_schedule.until
+      %td= link_to 'Show', recurring_schedule
+      %td= link_to 'Edit', edit_recurring_schedule_path(recurring_schedule)
+      %td= link_to 'Destroy', recurring_schedule, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Recurring schedule', new_recurring_schedule_path

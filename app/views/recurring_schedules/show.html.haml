@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Style:
+  = @recurring_schedule.style_id
+%p
+  %b Level:
+  = @recurring_schedule.level_id
+%p
+  %b Recurring period:
+  = @recurring_schedule.recurring_period_id
+%p
+  %b Day:
+  = @recurring_schedule.day
+%p
+  %b From:
+  = @recurring_schedule.from
+%p
+  %b To:
+  = @recurring_schedule.to
+%p
+  %b Until:
+  = @recurring_schedule.until
+
+= link_to 'Edit', edit_recurring_schedule_path(@recurring_schedule)
+\|
+= link_to 'Back', recurring_schedules_path

@@ -3,4 +3,6 @@ module ApplicationHelper
 		text = text.strip unless text.strip.nil?
 		return text.split(" ").each {|s| s.capitalize}.inject(""){|x,y|x<<" "<<y}
 	end
+
+
 end

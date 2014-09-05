@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140830170249) do
+ActiveRecord::Schema.define(version: 20140902124424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 20140830170249) do
   create_table "credentials", force: true do |t|
     t.integer  "instructor_id"
     t.integer  "certificate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "days", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -129,6 +135,35 @@ ActiveRecord::Schema.define(version: 20140830170249) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "recurring_periods", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recurring_schedule_exceptions", force: true do |t|
+    t.integer  "recurring_schedule_id"
+    t.date     "day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recurring_schedules", force: true do |t|
+    t.integer  "style_id"
+    t.integer  "level_id"
+    t.datetime "until"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "ice_cube_text"
+    t.integer  "instructor_id"
+    t.integer  "day_id"
+    t.string   "wday"
+    t.boolean  "is_whole_day"
+    t.string   "recurring_period"
+    t.datetime "from"
+    t.datetime "to"
   end
 
   create_table "student_geolocations", force: true do |t|

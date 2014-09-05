@@ -14,29 +14,21 @@ $ ->
     $("#geocomplete").val($(this).text()).trigger("geocode")
     return false
 
-  # for debug
-  # $('input[type="checkbox"]').change (e) ->
-  #   console.log e.target.checked
-  # end
+  containers = ['one-time-input', 'weekly-recurring-input', 'daily-recurring-input']
 
-  $(".one-time-input .make-whole-day input[type='checkbox']").change (e) ->
-    $(document).trigger("make-whole-day", e.target.checked)
-    $elem = $(".one-time-input select.hours")
-    unless !e.target.checked
-      $elem.attr("disabled", "disabled")
-    else
-      $elem.removeAttr('disabled')
-    $elem.selectpicker('refresh')
+  $(".make-whole-day input[type='checkbox']").val("off")
 
-
-  $(".recurring-input .make-whole-day input[type='checkbox']").change (e) ->
-    $(document).trigger("make-whole-day", e.target.checked)
-    $elem = $(".recurring-input select.hours")
-    unless !e.target.checked
-      $elem.attr("disabled", "disabled")
-    else
-      $elem.removeAttr('disabled')
-    $elem.selectpicker('refresh')
+  for c in containers
+    $(".#{c} .make-whole-day input[type='checkbox']").change (e) ->
+      $(document).trigger("make-whole-day", e.target.checked)
+      $elems = $(e.target).closest('.form-wrapper').find("select.hours")
+      if e.target.checked
+        $elems.attr("disabled", "disabled")
+        $(@).val('on')
+      else
+        $elems.removeAttr('disabled')
+        $(@).val('off')
+      $elems.selectpicker('refresh')
 
   exception_box = 0
 
@@ -47,6 +39,16 @@ $ ->
 
   $(".remove-exception").click (e) ->
     removeException(@)
+
+  $from = $(".from")
+  $to = $(".to")
+
+  time_zone = jstz.determine().name()
+
+  _.each $from, (f) ->
+    $(f).html moment($(f).html().trim()).tz(time_zone).format("hh:mm");
+  _.each $to, (t) ->
+    $(t).html moment($(t).html().trim()).tz(time_zone).format("hh:mm");
 
   $(".add-exception").click ->
     $(".exception-boxes").show()
@@ -121,84 +123,38 @@ $ ->
   $("a[data-toggle='tab']").on 'shown.bs.tab', (e) ->
     $('#calendar').fullCalendar('render');
 
-  $("#calendar").fullCalendar
-    header:
-      left: "prev,next today"
-      center: "title"
-      right: "month,agendaWeek,agendaDay"
+    currentTime = moment(new Date()).format("YYYY-MM-DD")
 
-    defaultDate: "2014-09-12"
-    selectable: true
-    selectHelper: true
-    select: (start, end, jsEvent, view) ->
-      title = prompt("Event Title:")
-      if title
-        eventData =
-          title: title
-          start: start
-          end: end
-          allDay: if view == "month" then true else false
-        $("#calendar").fullCalendar "renderEvent", eventData, true # stick? = true
-      $("#calendar").fullCalendar "unselect"
-      return
-    editable: true
-    eventLimit: true # allow "more" link when too many events
-    events: [
-      {
-        title: "All Day Event"
-        start: "2014-09-01"
-      }
-      {
-        title: "Long Event"
-        start: "2014-09-07"
-        end: "2014-09-10"
-      }
-      {
-        id: 999
-        title: "Repeating Event"
-        start: "2014-09-09T16:00:00"
-      }
-      {
-        id: 999
-        title: "Repeating Event"
-        start: "2014-09-16T16:00:00"
-      }
-      {
-        title: "Conference"
-        start: "2014-09-11"
-        end: "2014-09-13"
-      }
-      {
-        title: "Meeting"
-        start: "2014-09-12T10:30:00"
-        end: "2014-09-12T12:30:00"
-      }
-      {
-        title: "Lunch"
-        start: "2014-09-12T12:00:00"
-      }
-      {
-        title: "Meeting"
-        start: "2014-09-12T14:30:00"
-      }
-      {
-        title: "Happy Hour"
-        start: "2014-09-12T17:30:00"
-      }
-      {
-        title: "Dinner"
-        start: "2014-09-12T20:00:00"
-      }
-      {
-        title: "Birthday Party"
-        start: "2014-09-13T07:00:00"
-      }
-      {
-        title: "Click for Google"
-        url: "http://google.com/"
-        start: "2014-09-28"
-      }
-    ]
+    instructor_id = $(".instructor").html().trim()
 
+    $.ajax
+      method: "POST"
+      url: "schedules/get_ocurrences"
+      data:
+        current_time: currentTime
+      success: (e) ->
+        # console.log e
+        $("#calendar").fullCalendar
+          header:
+            left: "prev,next today"
+            center: "title"
+            right: "month,agendaWeek,agendaDay"
+          defaultDate: "2014-09-12"
+          selectable: true
+          selectHelper: true
+          select: (start, end, jsEvent, view) ->
+            title = prompt("Event Title:")
+            if title
+              eventData =
+                title: title
+                start: start
+                end: end
+                allDay: if view == "month" then true else false
+              $("#calendar").fullCalendar "renderEvent", eventData, true # stick? = true
+            $("#calendar").fullCalendar "unselect"
+            return
+          editable: true
+          eventLimit: true # allow "more" link when too many events
+          events: e
 
 

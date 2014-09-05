@@ -76,15 +76,105 @@ class InstructorsController < ApplicationController
       @instructor = current_user.instructor
       @styles = @instructor.styles
       @levels = Level.all
-      @weekdays = Date::DAYNAMES
-      @hours = ["12am"].concat((1..11).to_a.map{|a|a.to_s + "am"}).concat(["12pm"]).concat((1..11).to_a.map{|a|a.to_s + "am"})
+      @wdays = Date::DAYNAMES
+      @hours = get_all_hours
     else
       redirect_to :root
     end
   end
 
   def create_schedule
+    @instructor  = Instructor.find(params[:id])
+    style_id     = params[:style]
+    level_id     = params[:level]
+
+    wday         = if params[:wday] && params[:wday].length > 0 then params[:wday].downcase else nil end
+    day          = params[:day]
+
+    is_whole_day = params[:is_whole_day] == 'on'
     byebug
+    unless is_whole_day
+      if day
+        from         = Chronic.parse(day + " " + params[:from]).to_s
+        to           = Chronic.parse(day + " " + params[:to]).to_s
+      else
+        from         = Chronic.parse "this " + wday + " " + params[:from].to_s
+        to           = Chronic.parse "this " + wday + " " + params[:to].to_s
+      end
+    else
+      if day
+        from         = Chronic.parse(day).beginning_of_day.to_s
+        to           = Chronic.parse(day).end_of_day.to_s
+      else
+        from         = Chronic.parse("this " + wday).beginning_of_day.to_s
+        to           = Chronic.parse("this " + wday).end_of_day.to_s
+      end
+    end
+
+    until_date          = if params[:until_date] && params[:until_date].length > 0 then Chronic.parse params[:until_date] else nil end
+
+    params_exception    = params[:exception]
+    exceptions          = if params_exception && params_exception.length > 0 then params_exception.map {|e| Chronic.parse e} else [] end
+
+    recurring_period    = params[:recurring_period]
+
+    schedule = IceCube::Schedule.new(start=from, end_time: to)
+
+    if recurring_period == "weekly"
+      if until_date
+        r = IceCube::Rule.weekly.day(wday.to_sym).until(until_date)
+      else
+        r = IceCube::Rule.weekly.day(wday.to_sym)
+      end
+
+    elsif recurring_period == "daily"
+      if until_date
+        r = IceCube::Rule.daily.until(until_date)
+      else
+        r = IceCube::Rule.daily
+      end
+    end
+
+    schedule.add_recurrence_rule r if r
+
+    saved_exceptions = []
+    if exceptions && exceptions.length > 0
+      exceptions.each do |e|
+        unless e.nil?
+          schedule.add_exception_time e
+          exception = RecurringScheduleException.new
+          exception.day = e
+          exception.save!
+          saved_exceptions.push exception
+        end
+      end
+    end
+
+    recurring_schedule = RecurringSchedule.new
+
+    recurring_schedule.ice_cube_text = schedule.to_yaml
+    recurring_schedule.style_id = style_id
+    recurring_schedule.level_id = level_id
+    recurring_schedule.wday = wday if wday
+    recurring_is_whole_day = is_whole_day
+
+    recurring_schedule.from = from
+    recurring_schedule.to = to
+
+    recurring_schedule.is_whole_day = is_whole_day
+    recurring_schedule.until = until_date
+    recurring_schedule.recurring_period = recurring_period
+    recurring_schedule.instructor = @instructor
+
+    recurring_schedule.save!
+    saved_exceptions.each do |e|
+      e.recurring_schedule_id = recurring_schedule.id
+      e.save!
+    end
+
+    flash.now[:notice] = "Schedule saved"
+    redirect_to instructor_schedules_path(@instructor)
+
   end
 
   def new_style
@@ -180,6 +270,36 @@ class InstructorsController < ApplicationController
     render :text =>  "to show a teacher's schedule"
   end
 
+
+  def get_occurrences
+
+    @instructor = Instructor.find params[:id]
+
+    current_time = Chronic.parse params[:current_time]
+
+    start_time = current_time.beginning_of_month
+    end_time = current_time.end_of_month
+
+    result = []
+
+    @instructor.recurring_schedules.each do |schedule|
+      occurrences = IceCube::Schedule.from_yaml(schedule.ice_cube_text).occurrences_between(start_time, end_time)
+      occurrences.each do |occurrence|
+        if schedule.is_whole_day
+          result.push({ :start  =>  occurrence.start_time })
+        else
+          result.push({ :start  =>  occurrence.start_time, :end  =>  occurrence.end_time })
+        end
+      end
+    end
+
+    result.uniq!
+
+    render json: result
+
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_instructor
@@ -189,5 +309,9 @@ class InstructorsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_params
       params.require(:instructor).permit(:user_id, :street1, :street2, :city, :state, :country, :zip, :certificates, :teach_since, :styles, :certificate_name)
+    end
+
+    def get_all_hours
+      ["12am"].concat((1..11).to_a.map{|a|a.to_s + "am"}).concat(["12pm"]).concat((1..11).to_a.map{|a|a.to_s + "pm"})
     end
 end

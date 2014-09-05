@@ -36,6 +36,9 @@
 //= require bootstrap-datepicker/js/bootstrap-datepicker
 
 //= require fullcalendar/dist/fullcalendar
+//= require moment-timezone/builds/moment-timezone-with-data-2010-2020
+//= require jstz/jstz
+
 
 // +(function() {
 // 	var top = $(".top");
@@ -60,7 +63,12 @@
     $(".bootstrap-checkbox button").css({
       "outline": "none"
     })
-    $('.bsdatepicker').datepicker()
+
+    $('.bsdatepicker').datepicker({
+      startDate: new Date()
+    })
+
+    console.log(jstz.determine().name());
   })
 
 // })();

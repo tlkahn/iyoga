@@ -11,6 +11,7 @@ class Instructor < ActiveRecord::Base
 	has_many :certificates, :through => :credentials
 	has_many :practices
 	has_many :styles, :through => :practices
+  has_many :recurring_schedules
 
 	def address
 		return [self.street1, self.street2, self.city, self.state, self.country].inject("") { |x,y|y.nil? ? x : x<<" "<<y }

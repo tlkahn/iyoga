@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @recurring_period.name
+
+= link_to 'Edit', edit_recurring_period_path(@recurring_period)
+\|
+= link_to 'Back', recurring_periods_path
