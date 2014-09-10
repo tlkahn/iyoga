@@ -1,5 +1,4 @@
-<h1>New message</h1>
-
+<div class="col-md-6">
 <%= bootstrap_form_for(@message, url: "/messages") do |f| %>
   <% if @message.errors.any? %>
     <div id="error_explanation">
@@ -12,14 +11,8 @@
       </ul>
     </div>
   <% end %>
-
-  <!-- <div class="field"> -->
-    <%# f.label :from_user_id %><br>
-    <%# f.text_field :from_user_id, hide_label:true %>
-  <!-- </div> -->
-
   <div class="field">
-    <%= f.label :to_user_id %><br>
+    <label>To</label>
     <%= f.text_field :to_user_id, hide_label:true %>
   </div>
   <div class="field">
@@ -28,12 +21,14 @@
   </div>
   <div class="field">
     <%= f.label :body %><br>
-    <%= f.text_area :body, hide_label:true %>
+    <%= f.text_area :body, hide_label:true, :style => "min-height:225px" %>
   </div>
   <div class="actions">
     <%= f.submit "Submit" %>&nbsp;&nbsp;&nbsp;<%= link_to 'Cancel', messages_path, class: "btn btn-default" %>
   </div>
 <% end %>
+</div>
+<div class="col-md-6">
+<%= image_tag "wall.png", :class => "wide-image", :style => "width:80%;padding-top:15px" %>
 
-
-
+</div>

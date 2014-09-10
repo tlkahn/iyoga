@@ -46,9 +46,9 @@ $ ->
   time_zone = jstz.determine().name()
 
   _.each $from, (f) ->
-    $(f).html moment($(f).html().trim()).tz(time_zone).format("hh:mm");
+    $(f).html moment($(f).html().trim()).tz(time_zone).format("h a");
   _.each $to, (t) ->
-    $(t).html moment($(t).html().trim()).tz(time_zone).format("hh:mm");
+    $(t).html moment($(t).html().trim()).tz(time_zone).format("h a");
 
   $(".add-exception").click ->
     $(".exception-boxes").show()
@@ -140,7 +140,7 @@ $ ->
             center: "title"
             right: "month,agendaWeek,agendaDay"
           defaultDate: "2014-09-12"
-          selectable: true
+          selectable: false
           selectHelper: true
           select: (start, end, jsEvent, view) ->
             title = prompt("Event Title:")
@@ -153,8 +153,9 @@ $ ->
               $("#calendar").fullCalendar "renderEvent", eventData, true # stick? = true
             $("#calendar").fullCalendar "unselect"
             return
-          editable: true
+          editable: false
           eventLimit: true # allow "more" link when too many events
           events: e
+          timeFormat: 'H(:mm)'
 
 

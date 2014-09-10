@@ -2,10 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+
+
 $(document).on "ready page:load", ->
 
-	$('.datepicker').pickadate();
-	$('.timepicker').pickatime();
 	$('.selectpicker').selectpicker();
 	$('.multiselect').multiselect();
 
@@ -24,12 +24,12 @@ $(document).on "ready page:load", ->
 
 	if $(".welcome-title").length > 0
 		setInterval ->
-			newDate = $(".datepicker-wrap form input").val()
-			newFrom = $(".timepicker-wrap form .timepicker")[0].value
-			newTo = $(".timepicker-wrap form .timepicker")[1].value
-			newSearchLocation = $(".search-location").val()
-			newStyle = $(".style-wrapper .filter-option").html()
-			newLevel = $(".level-wrapper .filter-option").html()
+			newDate = if $(".datepicker-wrap form input") && $(".datepicker-wrap form input").length then $(".datepicker-wrap form input").val() else ""
+			newFrom = if $(".timepicker-wrap form .timepicker") && $(".timepicker-wrap form .timepicker").length then $(".timepicker-wrap form .timepicker")[0].value else ""
+			newTo = if $(".timepicker-wrap form .timepicker") && $(".timepicker-wrap form .timepicker").length then $(".timepicker-wrap form .timepicker")[1].value else ""
+			newSearchLocation = if $(".search-location") && $(".search-location").length then $(".search-location").val() else ""
+			newStyle = if $(".style-wrapper .filter-option") && $(".style-wrapper .filter-option").length then $(".style-wrapper .filter-option").html() else ""
+			newLevel = if $(".level-wrapper .filter-option") && $(".level-wrapper .filter-option").length then $(".level-wrapper .filter-option").html() else ""
 
 			unless newDate is oldDate
 				$(document).trigger("dateChanged", [newDate])
@@ -68,10 +68,3 @@ $(document).on "ready page:load", ->
 
 	$(document).on "levelChanged", (e, newLevel) ->
 		$("#level-value").val(newLevel)
-
-
-
-
-	return
-
-

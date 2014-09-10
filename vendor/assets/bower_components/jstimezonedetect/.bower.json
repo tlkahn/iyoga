@@ -1,0 +1,15 @@
+{
+  "name": "jstimezonedetect",
+  "_cacheHeaders": {
+    "ETag": "\"bc6fe7539481f33b4dcf5a5160c4a0d8\"",
+    "Last-Modified": "Tue, 02 Sep 2014 12:05:25 GMT",
+    "Content-Language": "en",
+    "Content-Length": "67003",
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "_release": "e-tag:bc6fe7539",
+  "main": "index",
+  "_source": "https://bitbucket.org/pellepim/jstimezonedetect",
+  "_target": "*",
+  "_originalSource": "https://bitbucket.org/pellepim/jstimezonedetect"
+}

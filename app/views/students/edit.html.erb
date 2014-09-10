@@ -1,42 +1,43 @@
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4 edit-student-form">
-		<%= bootstrap_form_for(@student) do |f| %>
-		<%= f.phone_field :phone %>
-		<%= f.text_area :introduction %>
-		<div class="form-group">
-			<label class="control-label" for="student_style">Style</label> &nbsp;
-				<select id="student_style" multiple="multiple">
-				</select>
-		</div>
-		<input type="text" name="student[styles]" class="selected-style" style="display:none">
-
-		<div>
-			<div><%= f.label "Address" %></div>
-			<div class="input-group" style="margin-bottom:10px">
-				<input type="text" class="geolocation form-control" name="geolocation"/>
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Search</button>
-				</span>
-			</div>
-		</div>
-
-		<div id="geomap" style="height: 300px;margin-bottom:10px;background-color: #666"></div>
-		<div class="details-list" style="display:none">
-			<div class="field"><div class="form-group geo-info geo-info-lat"><b>Lat</b><input class="form-control" name="lat" type="text"></input></div></div>
-			<div class="field"><div class="form-group geo-info geo-info-lng"><b>Lng</b><input class="form-control" name="lng" type="text"></input></div></div>
-			<div class="field"><div class="form-group geo-info geo-info-street"><b>Route</b><input class="form-control" name="route" type="text"></input></div></div>
-			<div class="field"><div class="form-group geo-info geo-info-street-number"><b>Street Number</b><input class="form-control" name="street_number" type="text"></input></div></div>
-			<div class="field"><div class="form-group geo-info geo-info-zip"><b>Postal Code</b> <input class="form-control" name="postal_code" type="text"></input></div></div>
-			<div class="field"><div class="form-group geo-info geo-info-city"><b>Locality</b> <input class="form-control" name="locality" type="text"></input></div></div>
-			<div class="field"><div class="form-group geo-info geo-info-country"><b>Country Code</b> <input class="form-control" name="country" type="text"></input></div></div>
-			<div class="field"><div class="form-group geo-info geo-info-state"><b>State</b> <input class="form-control" name="administrative_area_level_1" type="text"></input></div></div>
-		</div>
-
-		<%= f.submit "Update" %>&nbsp;&nbsp;&nbsp;<%= link_to "Cancel", :root, class: "btn btn-default" %>
+	<div class="edit-student-form">
+    <div class="col-md-6">
+      <%= bootstrap_form_for(@student) do |f| %>
+      <%= f.phone_field :phone %>
+      <%= f.text_area :introduction, :style => "height:120px"%>
+      <div class="form-group">
+        <label class="control-label" for="student_style">Style</label> &nbsp;
+        <br>
+        <select id="student_style" multiple="multiple">
+        </select>
+      </div>
+      <input type="text" name="student[styles]" class="selected-style" style="display:none">
+      <hr/>
+      <%= f.submit "Update" %>&nbsp;&nbsp;&nbsp;<%= link_to "Cancel", :root, class: "btn btn-default" %>
+    </div>
+    <div class="col-md-6">
+      <div>
+        <div><%= f.label "Address" %></div>
+        <div class="input-group" style="margin-bottom:10px">
+          <input type="text" class="geolocation form-control" name="geolocation"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Search</button>
+          </span>
+        </div>
+      </div>
+      <div id="geomap" style="height: 300px;margin-bottom:10px"></div>
+      <div class="details-list" style="display:none">
+        <div class="field"><div class="form-group geo-info geo-info-lat"><b>Lat</b><input class="form-control" name="lat" type="text"></input></div></div>
+        <div class="field"><div class="form-group geo-info geo-info-lng"><b>Lng</b><input class="form-control" name="lng" type="text"></input></div></div>
+        <div class="field"><div class="form-group geo-info geo-info-street"><b>Route</b><input class="form-control" name="route" type="text"></input></div></div>
+        <div class="field"><div class="form-group geo-info geo-info-street-number"><b>Street Number</b><input class="form-control" name="street_number" type="text"></input></div></div>
+        <div class="field"><div class="form-group geo-info geo-info-zip"><b>Postal Code</b> <input class="form-control" name="postal_code" type="text"></input></div></div>
+        <div class="field"><div class="form-group geo-info geo-info-city"><b>Locality</b> <input class="form-control" name="locality" type="text"></input></div></div>
+        <div class="field"><div class="form-group geo-info geo-info-country"><b>Country Code</b> <input class="form-control" name="country" type="text"></input></div></div>
+        <div class="field"><div class="form-group geo-info geo-info-state"><b>State</b> <input class="form-control" name="administrative_area_level_1" type="text"></input></div></div>
+      </div>
+    </div>
 		<% end %>
 	</div>
-	<div class="col-md-4"></div>
 
 	<!-- data area -->
 	<div class="styles" style="display:none">
@@ -92,6 +93,8 @@
 			var oldStyles = $.parseJSON($(".old-styles").html());
 			for (var i = 0; i < oldStyles.length; i++) {
 				var ms = $(".multiselect-container");
+        $(ms[1]).css("width", "300px")
+
 				var inputs = $(ms[ms.length-1]).find("input");
 				for (var j = 0; j < inputs.length; j++) {
 					var _input = $(inputs[j]);

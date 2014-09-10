@@ -16,7 +16,7 @@
     <% @instructors.each do |instructor| %>
       <tr>
         <td><%= instructor.user_id %></td>
-        <td><%= instructor.instructor_geolocations.first.address if instructor.instructor_geolocations.count > 0 %></td>
+        <td><%= instructor.instructor_geolocations.last.address if instructor.instructor_geolocations.count > 0 %></td>
         <td>
           <ul>
           <% instructor.certificates.each do |c| %>

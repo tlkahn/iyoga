@@ -1,5 +1,5 @@
 <h1>Editing instructor</h1>
-
+<div class="instructor-container">
 <%= bootstrap_form_for(@instructor) do |f| %>
 <% if @instructor.errors.any? %>
 <div id="error_explanation">
@@ -12,71 +12,102 @@
 </div>
 <% end %>
 
+<div class="details-list" style="display:none">
+  <div class="field">
+    <div class="form-group geo-info geo-info-location"><b>Location</b><input class="form-control" name="location" type="text" />
+    </div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-lat"><b>Lat</b><input class="form-control" name="lat" type="text" />
+    </div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-lng"><b>Lng</b><input class="form-control" name="lng" type="text" /></div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-street"><b>Route</b><input class="form-control" name="route" type="text" />
+    </div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-street-number"><b>Street Number</b><input class="form-control" name="street_number" type="text" /></div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-zip"><b>Postal Code</b> <input class="form-control" name="postal_code" type="text" /></div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-city"><b>Locality</b> <input class="form-control" name="locality" type="text" /></div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-country"><b>Country Code</b> <input class="form-control" name="country" type="text" /></div>
+  </div>
+  <div class="field">
+    <div class="form-group geo-info geo-info-state"><b>State</b> <input class="form-control" name="administrative_area_level_1" type="text" /></div>
+  </div>
+</div>
+
 <div class="row">
-  <div class="col-md-6 col-xs-12">
-    <div>
-      <div><%= f.label "Address" %></div>
-      <div class="input-group" style="margin-bottom:10px">
-        <input type="text" class="geolocation form-control" name="geolocation"/>
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Search</button>
-        </span>
+    <div class="col-md-6">
+      <div class="field address-field">
+        <div><%= f.label "Address" %></div>
+        <div class="input-group" style="margin-bottom:10px">
+          <input type="text" class="geolocation form-control" name="geolocation"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Search</button>
+          </span>
+        </div>
+        <div id="geomap" style="height: 300px;margin-bottom:10px"></div>
+        <div class="actions">
+          <%= f.submit %> <%= link_to "Cancel", :back, class: "btn btn-default" %>
+        </div>
       </div>
     </div>
-    <div id="geomap" style="height: 300px;margin-bottom:10px;background-color: #666"></div>
-    <div class="field">
-    <% if @certificates && @certificates.length > 0 %>
-      <table class="table table-striped">
-        <% @certificates.each do |certificate| %>
+    <div class="col-md-6">
+      <div class="field">
+        <label>Certificates</label>
+        <% if @certificates && @certificates.length > 0 %>
+        <table class="table table-striped certificates-table">
+          <% @certificates.each do |certificate| %>
           <tr><td><%= certificate[0] %></tr>
+          <% end %>
+        </table>
+        <% else %>
+        You have no certificate yet.
         <% end %>
-      </table>
-    <% else %>
-      You have no certificate yet.
-    <% end %>
-    <% unless @instructor.id.nil? %>
-      <%= link_to "Add", instructor_new_certificate_path(@instructor) %>
-    <% end %>
-    </div>
-    <div class="field">
-      <%= f.date_select :teach_since %>
-    </div>
-    <div class="field">
-    <% if !@styles.nil? && @styles.length > 0 %>
-      <table class="table table-striped">
-        <% @styles.each do |style| %>
+        <% unless @instructor.id.nil? %>
+        <%= link_to "Add", instructor_new_certificate_path(@instructor), class:"btn btn-default" %>
+        <% end %>
+      </div>
+
+      <div class="splitter"></div>
+
+      <div class="field">
+        <h5>Teach since</h5>
+        <%= f.date_select :teach_since, :hide_label => true %>
+      </div>
+
+      <div class="splitter"></div>
+
+      <div class="field">
+      <h5>Styles</h5>
+        <% if !@styles.nil? && @styles.length > 0 %>
+        <table class="table table-striped styles-table">
+          <% @styles.each do |style| %>
           <tr><td><%= style[0] %></tr>
+          <% end %>
+        </table>
+        <% else %>
+        You have no style yet.
         <% end %>
-      </table>
-    <% else %>
-      You have no style yet.
-    <% end %>
-    <% unless @instructor.id.nil? %>
-      <%= link_to "Add", instructor_new_style_path(@instructor) if @instructor %>
-    <% end %>
+        <% unless @instructor.id.nil? %>
+        <%= link_to "Add", (instructor_new_style_path(@instructor) if @instructor), :class  => "btn btn-default" %>
+        <% end %>
+      </div>
     </div>
-    <div class="actions">
-      <%= f.submit %> <%= link_to "Cancel", :back, class: "btn btn-default" %>
-    </div>
-  </div>
-  <div class="col-md-6 col-xs-12" style="display:none">
-    <div class="details-list">
-      <div class="field"><div class="form-group geo-info geo-info-location"><b>Location</b><input class="form-control" disabled="disabled" name="location" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-lat"><b>Lat</b><input class="form-control" disabled="disabled" name="lat" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-lng"><b>Lng</b><input class="form-control" disabled="disabled" name="lng" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-street"><b>Route</b><input class="form-control" disabled="disabled" name="route" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-street-number"><b>Street Number</b><input class="form-control" disabled="disabled" name="street_number" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-zip"><b>Postal Code</b> <input class="form-control" disabled="disabled" name="postal_code" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-city"><b>Locality</b> <input class="form-control" disabled="disabled" name="locality" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-country"><b>Country Code</b> <input class="form-control" disabled="disabled" name="country" type="text"></input></div></div>
-      <div class="field"><div class="form-group geo-info geo-info-state"><b>State</b> <input class="form-control" disabled="disabled" name="administrative_area_level_1" type="text"></input></div></div>
-    </div>
-  </div>
+</div>
 
 </div>
 
-
-
-
-
 <% end %>
+
+</div>
+

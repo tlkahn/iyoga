@@ -1,7 +1,5 @@
-
 %h1 Set your own schedule of yoga class
-%p Make your time  schedule to teach at your own place
-
+%h2
 .container
   %ul.nav.nav-tabs{:role => "tablist"}
     %li.active
@@ -79,16 +77,19 @@
           %hr
           %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
       .col-md-6.help-text
-        %h2 Your available time slots
-        %ul
-        - @instructor.recurring_schedules.each do |s|
-          -from = unless s.is_whole_day then s.from.to_s else "" end
-          -to = unless s.is_whole_day then s.to.to_s else "" end
-          %li
-            %span.schedule-prefix
-              %span.from=from
-              %span.to=to
-            %span.schedule=s.schedule.to_s
+        %h2 Available time slots
+        - @instructor.recurring_schedules.weekly.each do |s|
+        -from = unless s.is_whole_day then s.from.to_s else "" end
+        -to = unless s.is_whole_day then s.to.to_s else "" end
+
+          .splitter{style:"margin-bottom:5px"}
+          .bs-callout
+            %h4
+              %span.schedule-prefix
+                %span.from=from
+                %span.to=to
+                %span.schedule=s.schedule.to_s
+            %p=s.style.name.capitalize + " " + s.level.name.capitalize
 
     #scheduler-daily.tab-pane
       .col-md-6
@@ -151,8 +152,19 @@
 
           %hr
           %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
+
       .col-md-6.help-text
-        %h2 Your available time slots
+        %h2 Available time slots
+        %ul
+        - @instructor.recurring_schedules.daily.each do |s|
+          -from = unless s.is_whole_day then s.from.to_s else "" end
+          -to = unless s.is_whole_day then s.to.to_s else "" end
+          %li
+            %span.schedule-prefix
+              %span.from=from
+              %span.to=to
+            %span.schedule=s.schedule.to_s
+
     #scheduler-once.tab-pane
       .col-md-6
         %form{method:"POST",action: create_schedule_path(@instructor)}
@@ -193,7 +205,16 @@
           %input{:type => "submit", :value => "Set as available", :class => "btn btn-default"}
 
       .col-md-6.help-text
-        %h2 Your current available time slots
+        %h2 Current available time slots
+        %ul
+        - @instructor.recurring_schedules.onetime.each do |s|
+          -from = unless s.is_whole_day then s.from.to_s else "" end
+          -to = unless s.is_whole_day then s.to.to_s else "" end
+          %li
+            %span.schedule-prefix
+              %span.from=from
+              %span.to=to
+            %span.schedule=s.schedule.to_s
 
     #calendar-tab.tab-pane
       .form-wrapper

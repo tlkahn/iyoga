@@ -78,3 +78,21 @@ label {
 #calendar {
   padding-bottom: 20px;
 }
+
+.certificates-table, .styles-table {
+  margin-bottom: 5px !important;
+}
+
+.instructor-container{
+  .field {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .address-field {
+    min-height:492px;
+  }
+
+}
+

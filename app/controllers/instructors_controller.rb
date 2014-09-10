@@ -21,7 +21,6 @@ class InstructorsController < ApplicationController
       #   redirect_to user_schedule_path(current_user)
       # else
         @instructor = current_user.instructor
-
         @instructor = Instructor.new
         @certificates = Certificate.all.map {|c| [c.title, c.id]}
         @styles = Style.all.map {|c| [c.name, c.id]}
@@ -210,17 +209,17 @@ class InstructorsController < ApplicationController
   def create
     @instructor = Instructor.new(instructor_params)
 
-    instructor_geolocation = InstructorGeolocation.new
-    instructor_geolocation.address = params[:geolocation]
+    instructor_geolocation               = InstructorGeolocation.new
+    instructor_geolocation.address       = params[:geolocation]
 
-    instructor_geolocation.longitude = params[:lng]
-    instructor_geolocation.latitude = params[:lat]
-    instructor_geolocation.street = params[:rotue]
+    instructor_geolocation.longitude     = params[:lng]
+    instructor_geolocation.latitude      = params[:lat]
+    instructor_geolocation.street        = params[:route]
     instructor_geolocation.street_number = params[:street_number]
-    instructor_geolocation.zip = params[:postal_code]
-    instructor_geolocation.city = params[:locality]
-    instructor_geolocation.country = params[:country]
-    instructor_geolocation.state = params[:administrative_area_level_1]
+    instructor_geolocation.zip           = params[:postal_code]
+    instructor_geolocation.city          = params[:locality]
+    instructor_geolocation.country       = params[:country]
+    instructor_geolocation.state         = params[:administrative_area_level_1]
 
     @instructor.user_id = current_user.id
 
@@ -244,10 +243,28 @@ class InstructorsController < ApplicationController
   # PATCH/PUT /instructors/1
   # PATCH/PUT /instructors/1.json
   def update
+
+    instructor_geolocation               = InstructorGeolocation.new
+    instructor_geolocation.address       = params[:geolocation]
+    instructor_geolocation.longitude     = params[:lng]
+    instructor_geolocation.latitude      = params[:lat]
+    instructor_geolocation.street        = params[:route]
+    instructor_geolocation.street_number = params[:street_number]
+    instructor_geolocation.zip           = params[:postal_code]
+    instructor_geolocation.city          = params[:locality]
+    instructor_geolocation.country       = params[:country]
+    instructor_geolocation.state         = params[:administrative_area_level_1]
+
     respond_to do |format|
       if @instructor.update(instructor_params)
-        format.html { redirect_to @instructor, notice: 'Instructor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @instructor }
+        instructor_geolocation.instructor_id = @instructor.id
+        if instructor_geolocation.save
+          format.html { redirect_to @instructor, notice: 'Instructor was successfully updated.' }
+          format.json { render      :show, status: :ok, location: @instructor }
+        else
+          format.html { render :new }
+          format.json { render json: @instructor_geolocation.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :edit }
         format.json { render json: @instructor.errors, status: :unprocessable_entity }

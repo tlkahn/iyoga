@@ -24,6 +24,7 @@
     "bootstrap-datepicker": "https://github.com/eternicode/bootstrap-datepicker.git",
     "bootstrap": "https://github.com/twbs/bootstrap.git",
     "jstimezonedetect": "https://bitbucket.org/pellepim/jstimezonedetect",
-    "moment-timezone": "~0.2.1"
+    "moment-timezone": "~0.2.1",
+    "bootstrap-datetimepicker": "https://github.com/Eonasdan/bootstrap-datetimepicker.git"
   }
 }
