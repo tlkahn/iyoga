@@ -1,4 +1,6 @@
-<h1>Editing instructor</h1>
+<div class="geolocation" style="display:none">
+  <%= @instructor.geolocation.address %>
+</div>
 <div class="instructor-container">
 <%= bootstrap_form_for(@instructor) do |f| %>
 <% if @instructor.errors.any? %>
@@ -55,10 +57,11 @@
             <button class="btn btn-default" type="button">Search</button>
           </span>
         </div>
-        <div id="geomap" style="height: 300px;margin-bottom:10px"></div>
-        <div class="actions">
-          <%= f.submit %> <%= link_to "Cancel", :back, class: "btn btn-default" %>
-        </div>
+        <div id="geomap" style="height: 400px;margin-bottom:10px"></div>
+      </div>
+      <div class="actions" style="padding-top:20px">
+        <%= f.submit %>
+        <%= link_to "Cancel", :back, class: "btn btn-default" %>
       </div>
     </div>
     <div class="col-md-6">

@@ -91,7 +91,6 @@ class InstructorsController < ApplicationController
     day          = params[:day]
 
     is_whole_day = params[:is_whole_day] == 'on'
-    byebug
     unless is_whole_day
       if day
         from         = Chronic.parse(day + " " + params[:from]).to_s

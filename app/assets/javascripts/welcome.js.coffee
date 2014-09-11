@@ -2,12 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-
-
 $(document).on "ready page:load", ->
 
-	$('.selectpicker').selectpicker();
-	$('.multiselect').multiselect();
+  $('#ex1').slider
+    formatter: (value) ->
+      return 'Current value: ' + value;
 
 	oldDate = ""
 	oldFrom = ""

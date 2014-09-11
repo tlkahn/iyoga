@@ -1,0 +1,75 @@
+.row
+  .edit-student-form
+    =bootstrap_form_for(@student) do |f|
+      .col-md-6
+        =f.phone_field :phone
+        =f.text_area :introduction, :style => "height:270px"
+        .form-group
+          %label Style
+          .style-select-wrapper
+            %select.selectpicker#student_style{:name => "styles[]", :multiple => "multiple", "data-live-search"  => "true"}
+              %option Ashtanga
+              %option Iyengar
+              %option Hatha
+        .form-group
+          %label Language
+          .language-select-wrapper
+            %select.selectpicker#student_language{:multiple => "multiple", "data-live-search"  => "true"}
+              %option English
+              %option French
+              %option Chinese
+        %label Practice Since
+        .input-group
+          %input.practice-since.form-control{:type => "text", :name => "practice_since"}
+          %span.input-group-addon
+            %i.fa.fa-calendar
+        %hr
+        = f.submit "Update"
+        = link_to "Cancel", :root, class: "btn btn-default"
+      .col-md-6
+        %div= f.label "Address"
+        .input-group{:style => "margin-bottom:10px"}
+          %input.form-control.geo-search{:name => "geolocation", :type => "text"}
+          %span.input-group-btn
+            %button.btn.btn-default{:type => "button"} Search
+        #geomap{:style => "height: 300px;margin-bottom:10px"}
+        .geolocation{style:"display:none"}
+          =@student_geolocation.address
+        .old_styles{style:"display:none"}
+          =@old_styles
+        .old-practice-since{style:"display:none"}
+          =@old_practice_since
+        .details-list{style:"display:none"}
+          .field
+            .form-group.geo-info.geo-info-lat
+              %b Lat
+              %input.form-control{:name => "lat", :type => "text"}/
+          .field
+            .form-group.geo-info.geo-info-lng
+              %b Lng
+              %input.form-control{:name => "lng", :type => "text"}/
+          .field
+            .form-group.geo-info.geo-info-street
+              %b Route
+              %input.form-control{:name => "route", :type => "text"}/
+          .field
+            .form-group.geo-info.geo-info-street-number
+              %b Street Number
+              %input.form-control{:name => "street_number", :type => "text"}/
+          .field
+            .form-group.geo-info.geo-info-zip
+              %b Postal Code
+              %input.form-control{:name => "postal_code", :type => "text"}/
+          .field
+            .form-group.geo-info.geo-info-city
+              %b Locality
+              %input.form-control{:name => "locality", :type => "text"}/
+          .field
+            .form-group.geo-info.geo-info-country
+              %b Country Code
+              %input.form-control{:name => "country", :type => "text"}/
+          .field
+            .form-group.geo-info.geo-info-state
+              %b State
+              %input.form-control{:name => "administrative_area_level_1", :type => "text"}/
+

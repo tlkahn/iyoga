@@ -14,7 +14,7 @@
 	<div class="row welcome-date-time">
   <div class="col-md-2"></div>
     <div class="col-md-3 style-wrapper no-padding">
-      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="Style">
+      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Styles">
         <option>Iyengar</option>
         <option>Ashtanga Vinyasah</option>
         <option>Hatha</option>
@@ -23,7 +23,7 @@
       </select>
     </div>
     <div class="col-md-3 level-wrapper no-padding">
-      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="Level">
+      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Levels">
         <option>1</option>
         <option>2</option>
         <option>3</option>
@@ -94,7 +94,7 @@
 </div>
 
 </main>
-<%= render "shared/footer"%>
+
 
 <script type="text/javascript">
 
@@ -132,7 +132,7 @@
     hideSubcontainers();
 
     $(".calendar-btn").click(function() {
-      $('.location-picker-container').css('visibility','hidden');            
+      $('.location-picker-container').css('visibility','hidden');
       $(".date-picker-container").toggle()
     })
     $(".location-btn").click(function() {

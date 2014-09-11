@@ -13,14 +13,18 @@ class Instructor < ActiveRecord::Base
 	has_many :styles, :through => :practices
   has_many :recurring_schedules
 
-	def address
-		return [self.street1, self.street2, self.city, self.state, self.country].inject("") { |x,y|y.nil? ? x : x<<" "<<y }
-	end
+	# def address
+	# 	return [self.street1, self.street2, self.city, self.state, self.country].inject("") { |x,y|y.nil? ? x : x<<" "<<y }
+	# end
 
 	def self.uncached_find(id)
 		uncached do
 			find(id)
 		end
 	end
+
+  def geolocation
+    InstructorGeolocation.where(instructor_id: 9).order('updated_at desc').limit(1).to_a[0]
+  end
 
 end

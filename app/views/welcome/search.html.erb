@@ -1,28 +1,65 @@
 You are searching for
 <%= @date + @from + @to + @location_name + @style + @level + @location%>
+<div class="row">
+  <div class="col-md-6 map">
 
-<div class="col-md-6 map"></div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Instructor</th>
-        <th>User</th>
-        <th>Address</th>
-      </tr>
-    </thead>
+  </div>
+  <div class="col-md-6">
+    <div class="filter-list">
+      <label>Date</label>
+      <div class="input-group date" data-initialize="datepicker">
+        <input type="text" class="form-control" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </div>
+      <label>Style</label>
+      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Styles">
+        <option>Iyengar</option>
+        <option>Ashtanga Vinyasah</option>
+        <option>Hatha</option>
+        <option>Raja</option>
+        <option>Bikram</option>
+      </select>
+      <label>Level</label>
+      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Levels">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
+      <div class="slider-wrapper">
+        <div><label>Price Range</label></div>
+        <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="50"/>
+      </div>
 
-    <tbody>
-      <% unless @instructors_by_location.nil? %>
-      <% @instructors_by_location.each do |i| %>
-      <tr>
-        <td><%= i.instructor.id %></td>
-        <td><%= i.instructor.user.id %></td>
-        <td><%= i.address %></td>
-        <td><%= i.updated_at %></td>
-      </tr>
+      <div><label>Rank By</label></div>
+      <select class="selectpicker" data-width="100%">
+        <option>Distance</option>
+        <option>Teaching Experience</option>
+        <option>Practice Experience</option>
+      </select>
+    </div>
+    <div class="results-list">
+      <% unless @results.nil? %>
+
+      <% @results.each do |result| %>
+      <div class="jumbotron">
+        <p><%= result["instructor"]["id"]%></p>
+        <ul>
+          <li>
+            <% if result["schedule"]["is_whole_day"] %>
+            Whole Day
+            <% else %>
+            <%= result["schedule"]["start_time"] %>  to <%= result["schedule"]["end_time"]   %>
+            <% end %>
+          </li>
+          <li><%= result["schedule"]["details"]    %></li>
+        </ul>
+      </div>
       <% end %>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  </div>
 </div>
+
+
 

@@ -69,4 +69,3 @@ gem 'haml-rails'
 
 gem 'ice_cube'
 
-gem 'geo_ip'

@@ -10,33 +10,38 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//
 //= require jquery
 //= require jquery_ujs
-
 //= require underscore/underscore
+//= require angular
+
 //= require moment/moment
+//= require moment-timezone/builds/moment-timezone-with-data-2010-2020
+//= require jstz/jstz
 
 //= require_tree .
-//= require angular
+
 //= require bootstrap
 //= require bootstrap-datetimepicker/src/js/bootstrap-datetimepicker
 //= require pickdate/picker
 //= require pickdate/picker.date
 //= require pickdate/picker.time
 //= require bootstrap-select/bootstrap-select
-//= require bootstrap-multiselect
+
 //= require geocomplete/jquery.geocomplete
+
 //= require typeahead/bloodhound
 //= require typeahead/typeahead.bundle
 //= require typeahead/typeahead.jquery
 
 //= require bootstrap-switch/dist/js/bootstrap-switch
-//= require bootstrap-checkbox/js/bootstrap-checkbox
 //= require bootstrap-datepicker/js/bootstrap-datepicker
+//= require bootstrap-slider/dist/bootstrap-slider.min
 
 //= require fullcalendar/dist/fullcalendar
-//= require moment-timezone/builds/moment-timezone-with-data-2010-2020
-//= require jstz/jstz
+
+
 
 $(function() {
   if ($(".alert-warning").html().trim().length === 0) {
@@ -47,12 +52,14 @@ $(function() {
   }
   $("a[rel~=popover], .has-popover").popover();
   $("a[rel~=tooltip], .has-tooltip").tooltip();
-  $('input[type="checkbox"]').checkbox();
   $(".bootstrap-checkbox button").css({
     "outline": "none"
-  })
+  });
 
-  $('.datepicker').datepicker()
+  $('.datepicker').datepicker();
+
+  $('.selectpicker').selectpicker();
+
   $('.input-group.date').datepicker().on('changeDate', function(e){
         console.log("date changed to", e);
         $(document).trigger("current_date_changed", moment(e.date))

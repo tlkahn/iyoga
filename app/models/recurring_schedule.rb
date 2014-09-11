@@ -22,5 +22,23 @@ class RecurringSchedule < ActiveRecord::Base
     return schedule
   end
 
+  def occurrences_on(date)
+    results = []
+    schedule = self.schedule
+    from = date.beginning_of_day
+    to = date.end_of_day
+    schedule.occurrences_between(from, to).each do |occurrence|
+      r = Hash.new
+      r["instructor"]               = self.instructor
+      r["schedule"]                 = Hash.new
+      r["schedule"]["is_whole_day"] = self.is_whole_day
+      r["schedule"]["start_time"]   = schedule.start_time
+      r["schedule"]["end_time"]     = schedule.end_time
+      r["schedule"]["details"]      = schedule.to_s
+      results.push r
+    end
+    return results
+  end
+
 
 end

@@ -24,6 +24,7 @@
  *= require bootstrap-checkbox/css/bootstrap-checkbox
  *= require bootstrap-datepicker/css/datepicker3
  *= require bootstrap-datetimepicker/build/css/bootstrap-datetimepicker
+ *= require bootstrap-slider/dist/css/bootstrap-slider.min
 
  *= require bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min
  *= require fullcalendar/dist/fullcalendar
@@ -34,6 +35,10 @@
 
 body {
 	font-family: Helvectica, Arial, sans-serif
+}
+
+label {
+  white-space:nowrap;
 }
 
 @font-face {

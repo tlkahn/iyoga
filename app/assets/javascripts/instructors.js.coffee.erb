@@ -6,6 +6,7 @@ $ ->
   $("input.geolocation").geocomplete
     map: "#geomap"
     details: ".details-list",
+    location: $(".geolocation").html()
 
   $("#find").click ->
     $("#geolocation").trigger("geocode")

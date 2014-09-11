@@ -25,6 +25,8 @@
     "bootstrap": "https://github.com/twbs/bootstrap.git",
     "jstimezonedetect": "https://bitbucket.org/pellepim/jstimezonedetect",
     "moment-timezone": "~0.2.1",
-    "bootstrap-datetimepicker": "https://github.com/Eonasdan/bootstrap-datetimepicker.git"
+    "bootstrap-datetimepicker": "https://github.com/Eonasdan/bootstrap-datetimepicker.git",
+    "bootstrap-slider": "https://github.com/seiyria/bootstrap-slider.git",
+    "fuelux": "~3.0.1"
   }
 }

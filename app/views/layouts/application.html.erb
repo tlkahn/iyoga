@@ -16,9 +16,10 @@
     <%= flash[:notice] %>
     <%= flash[:error] %>
 	</div>
-	<div class="container">
+	<div class="container fuelux">
 		<%= render :partial => 'shared/header' %>
 		<%= yield %>
+    <%= render "shared/footer"%>
 	</div>
 </body>
 </html>
