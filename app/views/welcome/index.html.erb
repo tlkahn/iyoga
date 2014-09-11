@@ -64,7 +64,7 @@
         <span data-toggle="datepicker" data-type="subtract" class="fa fa-angle-left"></span>
         <span data-toggle="datepicker" data-type="add" class="fa fa-angle-right"></span>
 
-        <span data-toggle="calendar" data-show="false" class="fa fa-calendar"></span>
+        <span class="calendar-toggle" data-toggle="calendar" data-show="false" class="fa fa-calendar"><i class="fa fa-calendar"></i></span>
       </div>
       <div class="input-group date" style="display:none">
         <input type="text" class="form-control"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -95,6 +95,8 @@
 
 </main>
 
+<div class="address data-wrapper" ><%= @address %></div>
+
 
 <script type="text/javascript">
 
@@ -118,7 +120,7 @@
 			$("input.search-location").geocomplete({
 				map: "#geomap",
 				details: ".details-list",
-        location: "NYC"
+        location: $(".address").html().trim() || "NYC"
       }).bind("geocode:result", function(event, result){
         console.log(result);
       });

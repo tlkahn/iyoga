@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   def index
+    @address = current_user.instructor.geolocation.address
 
   end
 

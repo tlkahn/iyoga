@@ -55,6 +55,14 @@ main {
     margin-left: 0.1em;
   }
 
+  .date-picker-container {
+    height: 0px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+  }
 
   .date-picker,
   .date-container {
@@ -70,6 +78,9 @@ main {
   }
   .date-container {
     padding: 0px 40px;
+    position: absolute;
+    opacity: 0.5;
+    z-index: 999
   }
   .date-picker h2, .date-picker h4 {
     margin: 0px;
@@ -162,6 +173,10 @@ main {
 		margin-top: 20px;
     button,span,input {
       border-radius: 0 !important;
+    }
+    .style-wrapper button {
+      border-top-left-radius: 4px !important;
+      border-bottom-left-radius: 4px !important;
     }
 	}
 	.datepicker-wrap {
@@ -291,6 +306,12 @@ main {
     left: 45%;
     margin-left: -100px;
     position: absolute;
+    top: 85px;
+    z-index: 1000;
+  }
+
+  .calendar-toggle {
+    z-index: 1000;
   }
 
 
