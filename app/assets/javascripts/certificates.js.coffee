@@ -4,7 +4,7 @@
 
 $ ->
 
-	certificates = new Bloodhound(
+	certificates = new Bloodhound
 	  datumTokenizer: Bloodhound.tokenizers.obj.whitespace("name")
 	  queryTokenizer: Bloodhound.tokenizers.whitespace
 	  limit: 10
@@ -15,8 +15,6 @@ $ ->
 	    filter: (list) ->
 	      $.map list, (certificate) ->
 	        name: certificate.title
-
-	)
 
 	certificates.initialize()
 

@@ -1,7 +1,10 @@
 class WelcomeController < ApplicationController
   def index
-    @address = current_user.instructor.geolocation.address
-
+    if current_user && current_user.student.geolocation.address
+      @address = current_user.student.geolocation.address
+    else
+      @address = "San Francisco, CA, US"
+    end
   end
 
   def search

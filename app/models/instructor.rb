@@ -24,7 +24,7 @@ class Instructor < ActiveRecord::Base
 	end
 
   def geolocation
-    InstructorGeolocation.where(instructor_id: 9).order('updated_at desc').limit(1).to_a[0]
+    InstructorGeolocation.where(instructor_id: self.id).order('updated_at desc').limit(1).to_a[0]
   end
 
 end
