@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912000729) do
+ActiveRecord::Schema.define(version: 20140912064328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,13 +191,17 @@ ActiveRecord::Schema.define(version: 20140912000729) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "styles",         default: [], array: true
+    t.string   "styles",              default: [], array: true
     t.string   "college"
-    t.string   "language",       default: [], array: true
-    t.string   "interest",       default: [], array: true
+    t.string   "language",            default: [], array: true
+    t.string   "interest",            default: [], array: true
     t.string   "address"
     t.float    "longitude"
     t.float    "latitude"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "styles", force: true do |t|

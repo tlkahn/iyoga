@@ -3,6 +3,7 @@
 	<li><%= @student.user.name %></li>
 	<li><%= @student.phone %></li>
 	<li><%= @student.introduction %></li>
+  <li><%= image_tag @student.avatar.url(:medium), style: "width:30px;" %></li>
 	<li>
 		<ul>
 			<% @student.styles.each do |style| %>

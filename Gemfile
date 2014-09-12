@@ -69,3 +69,8 @@ gem 'haml-rails'
 
 gem 'ice_cube'
 
+gem 'rmagick'
+gem 'aws-sdk', '~> 1.5.7'
+gem "paperclip", "~> 4.2"
+
+gem 'dotenv-rails', :groups => [:development, :test]

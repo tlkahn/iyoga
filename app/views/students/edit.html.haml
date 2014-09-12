@@ -1,7 +1,8 @@
 .row
   .edit-student-form
-    =bootstrap_form_for(@student) do |f|
+    =bootstrap_form_for @student, :html => { :multipart => true } do |f|
       .col-md-6
+        =f.file_field :avatar
         =f.phone_field :phone
         =f.text_area :introduction, :style => "height:270px"
         .form-group

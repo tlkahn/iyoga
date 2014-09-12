@@ -21,6 +21,8 @@ class StudentsController < ApplicationController
 
   def update
 
+    @student.update!(student_params)
+
     @student.phone          = params["student"]["phone"] if params["student"]["phone"]
     @student.introduction   = params["student"]["introduction"].strip if params["student"]["introduction"]
     @student.styles         = params[:styles]
@@ -56,5 +58,9 @@ class StudentsController < ApplicationController
 
   def set_student
     @student = Student.find params[:id]
+  end
+
+  def student_params
+    params.require(:student).permit(:avatar)
   end
 end
