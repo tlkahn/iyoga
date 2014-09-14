@@ -2,7 +2,9 @@
   .edit-student-form
     =bootstrap_form_for @student, :html => { :multipart => true } do |f|
       .col-md-6
-        =f.file_field :avatar
+        =f.text_field :first_name
+        =f.text_field :last_name
+        =f.select :gender, [['male', true], ['female', false]],  { }, class: "selectpicker"
         =f.phone_field :phone
         =f.text_area :introduction, :style => "height:270px"
         .form-group
@@ -73,4 +75,10 @@
             .form-group.geo-info.geo-info-state
               %b State
               %input.form-control{:name => "administrative_area_level_1", :type => "text"}/
+        %hr
+        %label Profile Photo
+        %p
+          = image_tag @student.avatar.url(:medium)
+        / =f.file_field :avatar, :hide_label => true
+        %input{"data-filename-placement" => "inside", :type => "file", :name => "student[avatar]", :title => "#{if @student.avatar? then 'Change' else 'Create' end} Photo"}
 

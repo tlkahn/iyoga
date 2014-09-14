@@ -29,16 +29,23 @@ class WelcomeController < ApplicationController
 
     @instructors_by_location = InstructorGeolocation.find_by_location @longitude, @latitude, @radius
 
-    @results = []
+    @result = {}
     @instructors_by_location.each do |instructor_by_location|
-      instructor_by_location.instructor.recurring_schedules.each do |recurring_schedule|
-        @results.concat recurring_schedule.occurrences_on(@from_date)
+      @instructor = instructor_by_location.instructor
+      @instructor.recurring_schedules.each do |recurring_schedule|
+        occurrences = recurring_schedule.occurrences_on(@from_date)
+        puts occurrences
+        unless @result[@instructor.id]
+          @result[@instructor.id] = occurrences
+        else
+          @result[@instructor.id] = @result[@instructor.id].concat occurrences
+        end
       end
     end
 
     respond_to do |format|
         format.html {}
-        format.json { render json: @results, status: :search_completed }
+        format.json { render json: @result, status: :search_completed }
     end
 
   end

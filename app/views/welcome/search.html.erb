@@ -1,37 +1,45 @@
-You are searching for
-<%= @date + @from + @to + @location_name + @style + @level + @location%>
+<div class="location">
+
+</div>
 <div class="row">
   <div class="col-md-6 map">
-
+    <div id="map" style='width: 100%; height: 400px;'></div>
   </div>
   <div class="col-md-6">
-    <div class="filter-list">
-      <label>Date</label>
-      <div class="input-group date" data-initialize="datepicker">
-        <input type="text" class="form-control" />
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    <div class="field">
+      <div class="filter-list">
+        <label>Date</label>
+        <div class="input-group date" data-initialize="datepicker">
+          <input type="text" class="form-control" />
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        <label>Style</label>
+        <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Styles">
+          <option>Iyengar</option>
+          <option>Ashtanga Vinyasah</option>
+          <option>Hatha</option>
+          <option>Raja</option>
+          <option>Bikram</option>
+        </select>
+        <label>Level</label>
+        <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Levels">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+        <div class="slider-wrapper">
+          <div><label>Price Range</label></div>
+          <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="50"/>
+        </div>
+        <div>
+          <button class="btn btn-default">Search</button>
+        </div>
       </div>
-      <label>Style</label>
-      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Styles">
-        <option>Iyengar</option>
-        <option>Ashtanga Vinyasah</option>
-        <option>Hatha</option>
-        <option>Raja</option>
-        <option>Bikram</option>
-      </select>
-      <label>Level</label>
-      <select class="selectpicker" data-live-search="true" data-width="100%" multiple title="All Levels">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-      </select>
-      <div class="slider-wrapper">
-        <div><label>Price Range</label></div>
-        <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="50"/>
-      </div>
-
-      <div><label>Rank By</label></div>
+    </div>
+    <hr/>
+    <div>
+      <label>Rank By</label>
       <select class="selectpicker" data-width="100%">
         <option>Distance</option>
         <option>Teaching Experience</option>
@@ -39,23 +47,20 @@ You are searching for
       </select>
     </div>
     <div class="results-list">
-      <% unless @results.nil? %>
-
-      <% @results.each do |result| %>
-      <div class="jumbotron">
-        <p><%= result["instructor"]["id"]%></p>
-        <ul>
-          <li>
-            <% if result["schedule"]["is_whole_day"] %>
-            Whole Day
-            <% else %>
-            <%= result["schedule"]["start_time"] %>  to <%= result["schedule"]["end_time"]   %>
+      <% if @result %>
+        <% @result.keys.each do |instructor_id| %>
+        <div class="jumbotron">
+          <span><%= @instructor.name %></span>
+            <% @result[instructor_id].each do |occurrence| %>
+              <% if occurrence["schedule"]["is_whole_day"] %>
+                <li>Whole Day</li>
+              <% else %>
+                <li>Start Time<%= occurrence["schedule"]["start_time"] %></li>
+                <li>End Time<%= occurrence["schedule"]["end_time"] %></li>
+              <% end %>
             <% end %>
-          </li>
-          <li><%= result["schedule"]["details"]    %></li>
-        </ul>
-      </div>
-      <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>

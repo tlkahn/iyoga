@@ -27,4 +27,9 @@ class Instructor < ActiveRecord::Base
     InstructorGeolocation.where(instructor_id: self.id).order('updated_at desc').limit(1).to_a[0]
   end
 
+  def name
+    student = self.user.student
+    student.first_name + " " + student.last_name
+  end
+
 end

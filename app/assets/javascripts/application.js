@@ -28,6 +28,7 @@
 //= require pickdate/picker.date
 //= require pickdate/picker.time
 //= require bootstrap-select/bootstrap-select
+//= require bootstrap.file-input
 
 //= require geocomplete/jquery.geocomplete
 
@@ -57,13 +58,13 @@ $(function() {
   });
 
   $('.datepicker').datepicker();
-
   $('.selectpicker').selectpicker();
+  $('input[type=file]').bootstrapFileInput();
 
   $('.input-group.date').datepicker().on('changeDate', function(e){
         console.log("date changed to", e);
-        $(document).trigger("current_date_changed", moment(e.date))
-    });
+        $(document).trigger("current_date_changed", moment(e.date));
+  });
 
   $(document).on('current_date_modified', function(e, date) {
     $('.input-group.date').datepicker('update', date.toDate())
