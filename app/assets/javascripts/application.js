@@ -31,6 +31,7 @@
 //= require bootstrap.file-input
 
 //= require geocomplete/jquery.geocomplete
+//= require gmaps/google
 
 //= require typeahead/bloodhound
 //= require typeahead/typeahead.bundle
@@ -42,9 +43,11 @@
 
 //= require fullcalendar/dist/fullcalendar
 
+(function($) {
 
+  "use strict";
 
-$(function() {
+  $(function() {
   if ($(".alert-warning").html().trim().length === 0) {
     $(".alert-warning").hide();
   }
@@ -162,3 +165,6 @@ $(function() {
     // }
   });
 })
+
+})(window.jQuery)
+

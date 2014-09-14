@@ -2,12 +2,11 @@
 <html>
 <head>
   <title>iYoga</title>
-  <!-- <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1"> -->
-  <meta name="viewport" id="viewport" content="initial-scale=1.0,width=device-width,user-scalable=no" />
+  <meta name="viewport" id="viewport" content="initial-scale=1.0,width=device-width,user-scalable=1" />
   <%= stylesheet_link_tag    'application', media: 'all'%>
-  <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
-
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_KEY']}&sensor=false" %>
   <%= javascript_include_tag 'application' %>
+  <%= yield(:google_maps_api) %>
   <%= csrf_meta_tags %>
 </head>
 <body>
