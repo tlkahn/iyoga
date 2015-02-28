@@ -31,7 +31,6 @@
 //= require bootstrap.file-input
 
 //= require geocomplete/jquery.geocomplete
-//= require gmaps/google
 
 //= require typeahead/bloodhound
 //= require typeahead/typeahead.bundle
@@ -50,7 +49,9 @@
   $(function() {
 
   $("body").click(function() {
-    window.ga('send','event','body','click');
+    window.dataLayer.push({
+      'event': 'pageClick'
+    });
   })
 
   if ($(".alert-warning").html().trim().length === 0) {
