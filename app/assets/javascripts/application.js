@@ -48,6 +48,11 @@
   "use strict";
 
   $(function() {
+
+  $("body").click(function() {
+    window.ga('send','event','body','click');
+  })
+
   if ($(".alert-warning").html().trim().length === 0) {
     $(".alert-warning").hide();
   }
@@ -126,6 +131,7 @@
     });
 
     $datepicker.on('click', '.input-datepicker > .input-group-btn > button', function(event) {
+      ga('send', 'datepicker', 'cick');
       event.preventDefault();
       var $input = $(this).closest('.input-datepicker').find('input'),
       date_format = ($input.data('format') ? $input.data('format') : "YYYY/MM/DD");
